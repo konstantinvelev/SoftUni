@@ -32,12 +32,9 @@
 
         public DbSet<Exercise> Exercises { get; set; }
 
-        public DbSet<WomansCategory> WomansCategories { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
-        public DbSet<MansCategory> Settings { get; set; }
-
-        public DbSet<Setting> Settings { get; set; }
-
+        public DbSet<Vote> Votes { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -60,6 +57,29 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Exercise>(s =>
+            {
+                s.HasOne(p => p.Category)
+                .WithMany(s => s.Exercises)
+                .HasForeignKey(s => s.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            builder.Entity<Comment>(s =>
+            {
+                s.HasOne(p => p.Exercise)
+                .WithMany(s => s.Commetns)
+                .HasForeignKey(s => s.ExerciseId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            builder.Entity<Vote>(s =>
+            {
+                s.HasOne(p => p.Exercise)
+                .WithMany(s => s.Votes)
+                .HasForeignKey(s => s.ExerciseId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 

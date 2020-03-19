@@ -34,5 +34,9 @@
         public ICollection<Comment> Commetns { get; set; }
 
         public ICollection<Vote> Votes { get; set; }
+
+        public Category Category { get; set; }
+
+        public string CategoryId { get; set; }
     }
 }

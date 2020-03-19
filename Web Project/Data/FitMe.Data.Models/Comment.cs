@@ -11,7 +11,6 @@
         public Comment()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Votes = new HashSet<Vote>();
         }
 
         public ApplicationUser User { get; set; }
@@ -26,7 +25,5 @@
         public Exercise Exercise { get; set; }
 
         public string ExerciseId { get; set; }
-
-        public ICollection<Vote> Votes { get; set; }
     }
 }
