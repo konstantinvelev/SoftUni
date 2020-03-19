@@ -26,6 +26,19 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<Diet> Diets { get; set; }
+
+        public DbSet<Exercise> Exercises { get; set; }
+
+        public DbSet<WomansCategory> WomansCategories { get; set; }
+
+        public DbSet<MansCategory> Settings { get; set; }
+
+        public DbSet<Setting> Settings { get; set; }
+
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

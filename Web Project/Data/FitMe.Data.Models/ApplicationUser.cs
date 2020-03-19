@@ -3,7 +3,7 @@ namespace FitMe.Data.Models
 {
     using System;
     using System.Collections.Generic;
-
+    using System.ComponentModel.DataAnnotations;
     using FitMe.Data.Common.Models;
 
     using Microsoft.AspNetCore.Identity;
@@ -25,6 +25,9 @@ namespace FitMe.Data.Models
 
         // Deletable entity
         public bool IsDeleted { get; set; }
+
+        [Required]
+        public TypeOfGender TypeOfGender { get; set; }
 
         public DateTime? DeletedOn { get; set; }
 
