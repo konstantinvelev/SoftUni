@@ -23,7 +23,13 @@ namespace FitMe.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult AddExercises()
+        {
+            return this.View();
+        }
+
+        [HttpGet]
+        public IActionResult AddDiets()
         {
             return this.View();
         }
