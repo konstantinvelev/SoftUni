@@ -1,9 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace FitMe.Web.Controllers
+﻿namespace FitMe.Web.Controllers
 {
+    using FitMe.Services.Data;
+    using FitMe.Web.ViewModels.Categories;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Linq;
+
     public class ExercisesController : BaseController
     {
+        private readonly IExercisesService exercisesService;
+
+        public ExercisesController(IExercisesService exercisesService)
+        {
+            this.exercisesService = exercisesService;
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -32,6 +42,17 @@ namespace FitMe.Web.Controllers
         public IActionResult AddDiets()
         {
             return this.View();
+        }
+
+        public IActionResult All()
+        {
+            var all = this.exercisesService.GetAll().Select(x => x.Title);
+            var viewModel = new AllViewMode
+            {
+                Title = all,
+            };
+
+            return this.View(viewModel);
         }
     }
 }
