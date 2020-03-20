@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace FitMe.Web.Controllers
+﻿namespace FitMe.Web.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     public class CategoriesController : BaseController
     {
         [HttpGet]
@@ -11,7 +11,13 @@ namespace FitMe.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Exercises()
+        public IActionResult MansExercises()
+        {
+            return this.View();
+        }
+
+        [HttpGet]
+        public IActionResult WomansExercises()
         {
             return this.View();
         }

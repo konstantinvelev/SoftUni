@@ -3,5 +3,13 @@
     this.ViewData["Title"] = "Categories";
 }
 
-<button type="button" class="btn-link text-dark" asp-area="" asp-controller="Categories" asp-action="Exercises">Mans</button>
-<button type="button">Womans</button>
+<form asp-controller="Categories" asp-action="MansExercises" method="get">
+    <button type="submit" class="btn btn-primary">Mans</button>
+</form>
+
+
+
+
+<form asp-controller="Categories" asp-action="WomansExercises" method="get">
+    <button type="submit" class="btn btn-primary">Womans</button>
+</form>

@@ -1,0 +1,13 @@
+﻿@using FitMe.Common
+@{
+    this.ViewData["Title"] = "Home Page";
+}
+
+<form asp-controller="Exercises" asp-action="Exercises" method="get">
+    <button type="submit" class="btn btn-primary">Exercises</button>
+</form>
+
+
+<form asp-controller="Exercises" asp-action="Diets" method="get">
+    <button type="submit" class="btn btn-primary">Diets</button>
+</form>
