@@ -11,13 +11,13 @@
         }
 
         [HttpGet]
-        public IActionResult MansExercises()
+        public IActionResult Mans()
         {
             return this.View();
         }
 
         [HttpGet]
-        public IActionResult WomansExercises()
+        public IActionResult Womans()
         {
             return this.View();
         }

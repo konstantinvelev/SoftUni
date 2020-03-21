@@ -27,7 +27,7 @@ namespace FitMe.Data.Models
         public bool IsDeleted { get; set; }
 
         [Required]
-        public TypeOfGender TypeOfGender { get; set; }
+        public Gender TypeOfGender { get; set; }
 
         public DateTime? DeletedOn { get; set; }
 

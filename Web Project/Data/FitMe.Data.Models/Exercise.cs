@@ -24,6 +24,9 @@
         [MaxLength(int.MaxValue)]
         public string Content { get; set; }
 
+        [Required]
+        public Gender TypeOfGender { get; set; }
+
         public byte[] Video { get; set; }
 
         [Required]

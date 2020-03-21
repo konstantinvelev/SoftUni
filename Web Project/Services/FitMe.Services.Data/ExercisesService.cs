@@ -1,22 +1,23 @@
 ﻿namespace FitMe.Services.Data
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using FitMe.Data.Common.Repositories;
     using FitMe.Data.Models;
 
     public class ExercisesService : IExercisesService
     {
-        private readonly IDeletableEntityRepository<Exercise> repository;
+        private readonly IDeletableEntityRepository<Exercise> exerciseRepository;
 
-        public ExercisesService(IDeletableEntityRepository<Exercise> repository)
+        public ExercisesService(IDeletableEntityRepository<Exercise> exerciseRepository)
         {
-            this.repository = repository;
+            this.exerciseRepository = exerciseRepository;
         }
 
         public IEnumerable<Exercise> GetAll()
         {
-            var allExercise = this.repository.All();
+            var allExercise = this.exerciseRepository.All().ToList();
 
             return allExercise;
         }

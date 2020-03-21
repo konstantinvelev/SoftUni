@@ -1,9 +1,10 @@
 ﻿namespace FitMe.Web.Controllers
 {
+    using System.Linq;
+
     using FitMe.Services.Data;
     using FitMe.Web.ViewModels.Categories;
     using Microsoft.AspNetCore.Mvc;
-    using System.Linq;
 
     public class ExercisesController : BaseController
     {
@@ -14,45 +15,32 @@
             this.exercisesService = exercisesService;
         }
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return this.View();
-        }
 
-        [HttpGet]
-        public IActionResult Exercises()
+        public IActionResult AllForMans()
         {
-            return this.View();
-        }
-
-        [HttpGet]
-        public IActionResult Diets()
-        {
-            return this.View();
-        }
-
-        [HttpGet]
-        public IActionResult AddExercises()
-        {
-            return this.View();
-        }
-
-        [HttpGet]
-        public IActionResult AddDiets()
-        {
-            return this.View();
-        }
-
-        public IActionResult All()
-        {
-            var all = this.exercisesService.GetAll().Select(x => x.Title);
-            var viewModel = new AllViewMode
+            var all = this.exercisesService.GetAll().Where(s => s.TypeOfGender.ToString() == "Man");
+            var viewModel = new AllExercisesViewMode
             {
-                Title = all,
+                Exercises = all,
             };
 
             return this.View(viewModel);
+        }
+
+        public IActionResult AllForWomans()
+        {
+            var all = this.exercisesService.GetAll().Where(s => s.TypeOfGender.ToString() == "Woman");
+            var viewModel = new AllExercisesViewMode
+            {
+                Exercises = all,
+            };
+
+            return this.View(viewModel);
+        }
+
+        public IActionResult Create()
+        {
+            return this.View();
         }
     }
 }

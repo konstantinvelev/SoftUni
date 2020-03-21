@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewData["Title"] = "Diets";
+}
+
+<form asp-controller="Diets" asp-action="Create" method="get">
+    <button type="submit" class="btn btn-primary">Add Diet</button>
+</form>
+
+
+
+<section class="py-5">
+    <div class="container">
+        <h1 style="margin: 2%; text-align: center;">All Diets</h1>
+        <div style="padding: 5%;">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">StartPoint</th>
+                        <th scope="col">EndPoint</th>
+                        <th scope="col">DepartureTime</th>
+                        <th scope="col">Seats</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Diets)
+                    {
+                        <div>@item.Title</div>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

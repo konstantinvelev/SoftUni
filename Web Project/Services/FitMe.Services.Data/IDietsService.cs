@@ -1,11 +1,12 @@
 ﻿namespace FitMe.Services.Data
 {
     using System.Collections.Generic;
-
+    using System.Threading.Tasks;
     using FitMe.Data.Models;
 
-    public interface IExercisesService
+    public interface IDietsService
     {
-       public IEnumerable<Exercise> GetAll();
+        public IEnumerable<Diet> GetAll();
+
     }
 }
