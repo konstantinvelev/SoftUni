@@ -1,26 +1,27 @@
 ﻿namespace FitMe.Web.Controllers
 {
     using System.Linq;
+    using System.Threading.Tasks;
 
     using FitMe.Data.Models;
     using FitMe.Services.Data;
+    using FitMe.Web.ViewModels.Diets;
     using FitMe.Web.ViewModels.Exercise;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class DietsController : BaseController
     {
         private readonly IDietsService dietsService;
+        private readonly IUsersService usersService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public DietsController(IDietsService dietsService)
+        public DietsController(IDietsService dietsService, IUsersService usersService, UserManager<ApplicationUser> userManager)
         {
             this.dietsService = dietsService;
-        }
-
-        [HttpGet]
-        public IActionResult AddDiets()
-        {
-            return this.View();
+            this.usersService = usersService;
+            this.userManager = userManager;
         }
 
         public IActionResult AllForMans()
@@ -45,9 +46,32 @@
             return this.View(viewModel);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return this.View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Create(CreateDietInputModel input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            var user = await this.userManager.GetUserAsync(this.User);
+            if (user.TypeOfGender.ToString() == "Man")
+            {
+               await this.dietsService.CreateMansDietAsync(input, user.Id);
+               return this.Redirect("/Diets/AllForMans");
+            }
+            else
+            {
+                await this.dietsService.CreateWomansDietAsync(input, user.Id);
+                return this.Redirect("/Diets/AllForMans");
+            }
         }
     }
 }

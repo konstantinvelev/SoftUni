@@ -16,7 +16,6 @@ namespace FitMe.Services.Data
         public ApplicationUser GetUserById(string id)
         {
             var user = this.repository.All().FirstOrDefault(x => x.Id == id);
-
             return user;
         }
     }
