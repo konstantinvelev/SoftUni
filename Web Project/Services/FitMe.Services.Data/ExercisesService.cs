@@ -1,10 +1,13 @@
 ﻿namespace FitMe.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using FitMe.Data.Common.Repositories;
     using FitMe.Data.Models;
+    using FitMe.Web.ViewModels.Exercise;
 
     public class ExercisesService : IExercisesService
     {
@@ -13,6 +16,34 @@
         public ExercisesService(IDeletableEntityRepository<Exercise> exerciseRepository)
         {
             this.exerciseRepository = exerciseRepository;
+        }
+
+        public async Task CreateWomansDietAsync(CreateExercisesInputModel create, string userId)
+        {
+            var exercise = new Exercise
+            {
+                Title = create.Title,
+                Content = create.Content,
+                TypeOfGender = Enum.Parse<Gender>("Woman"),
+                Video = create.Video,
+                UserID = userId,
+            };
+            await this.exerciseRepository.AddAsync(exercise);
+            await this.exerciseRepository.SaveChangesAsync();
+        }
+
+        public async Task CreateMansDietAsync(CreateExercisesInputModel create, string userId)
+        {
+            var exercise = new Exercise
+            {
+                Title = create.Title,
+                Content = create.Content,
+                TypeOfGender = Enum.Parse<Gender>("Man"),
+                Video = create.Video,
+                UserID = userId,
+            };
+            await this.exerciseRepository.AddAsync(exercise);
+            await this.exerciseRepository.SaveChangesAsync();
         }
 
         public IEnumerable<Exercise> GetAll()

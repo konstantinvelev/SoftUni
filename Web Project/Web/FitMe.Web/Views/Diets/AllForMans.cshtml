@@ -23,7 +23,19 @@
                 <tbody>
                     @foreach (var item in Model.Diets)
                     {
-                        <div>@item.Title</div>
+                         if (item.TypeOfGender.ToString() == "Women")
+                        {
+                            continue;
+                        }
+                        <tr>
+                            <th scope="row">@item.Title</th>
+                            <td>@item.Description</td>
+                            <td>
+                                <div class="button-holder">
+                                    <a href="/Diets/Details?tripId=@item.Id" class="btn btn-info text-uppercase">Info</a>
+                                </div>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>

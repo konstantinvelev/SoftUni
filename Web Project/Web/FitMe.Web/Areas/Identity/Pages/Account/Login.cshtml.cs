@@ -41,6 +41,9 @@ namespace FitMe.Web.Areas.Identity.Pages.Account
         [TempData]
         public string ErrorMessage { get; set; }
 
+        [Required]
+        public Gender TypeOfGender { get; set; }
+
         public class InputModel
         {
             [Required]

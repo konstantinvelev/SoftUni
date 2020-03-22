@@ -14,13 +14,13 @@
     public class DietsController : BaseController
     {
         private readonly IDietsService dietsService;
-        private readonly IUsersService usersService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public DietsController(IDietsService dietsService, IUsersService usersService, UserManager<ApplicationUser> userManager)
+        public DietsController(
+            IDietsService dietsService,
+            UserManager<ApplicationUser> userManager)
         {
             this.dietsService = dietsService;
-            this.usersService = usersService;
             this.userManager = userManager;
         }
 
