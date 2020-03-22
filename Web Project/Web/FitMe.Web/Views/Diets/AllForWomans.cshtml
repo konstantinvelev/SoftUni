@@ -8,37 +8,26 @@
 </form>
 
 
+@foreach (var item in Model.Diets)
+{
+    if (item.TypeOfGender.ToString() == "Man")
+    {
+        continue;
+    }
+    <div class="row blog-page">
+        <div class="col-md-9">
+            <p>
+                @item.Title
+            </p>
+            <div class="blog margin-bottom-40">
+                <div>
+                    @item.Description
+                </div>
+                <div class="button-holder">
+                    <a href="/Exercises/Details?tripId=@item.Id" class="btn btn-info text-uppercase">Info</a>
+                </div>
 
-<section class="py-5">
-    <div class="container">
-        <h1 style="margin: 2%; text-align: center;">All Diets</h1>
-        <div style="padding: 5%;">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Diets)
-                    {
-                        if (item.TypeOfGender.ToString() == "Man")
-                        {
-                            continue;
-                        }
-                        <tr>
-                            <th scope="row">@item.Title</th>
-                            <td>@item.Description</td>
-                            <td>
-                                <div class="button-holder">
-                                    <a href="/Diets/Details?tripId=@item.Id" class="btn btn-info text-uppercase">Info</a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            </div>
         </div>
     </div>
-</section>
+}

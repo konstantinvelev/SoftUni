@@ -6,38 +6,34 @@
     <button type="submit" class="btn btn-primary">Add Exercises</button>
 </form>
 
-<section class="py-5">
-    <div class="container">
-        <h1 style="margin: 2%; text-align: center;">All Exercise</h1>
-        <div style="padding: 5%;">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Content</th>
-                        <th scope="col">Video</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Exercises)
-                    {
-                        if (item.TypeOfGender.ToString() == "Man")
-                        {
-                            continue;
-                        }
-                        <tr>
-                            <th scope="row">@item.Title</th>
-                            <td>@item.Content</td>
-                            <td>@item.Video</td>
-                            <td>
-                                <div class="button-holder">
-                                    <a href="/Exercises/Details?tripId=@item.Id" class="btn btn-info text-uppercase">Info</a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+@foreach (var item in Model.Exercises)
+{
+    if (item.TypeOfGender.ToString() == "Man")
+    {
+        continue;
+    }
+    <div class="row blog-page">
+        <div class="col-md-9">
+
+            <p>
+                @item.Title
+            </p>
+            <div class="blog margin-bottom-40">
+
+
+                <div class="blog-img">
+                    <div class="responsive-video">
+                        <iframe src="https://www.youtube.com/embed/dluB5VE1m1k" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                    </div>
+                </div>
+                <div>
+                    @item.Content
+                </div>
+                <div class="button-holder">
+                    <a href="/Exercises/Details?tripId=@item.Id" class="btn btn-info text-uppercase">Info</a>
+                </div>
+
+            </div>
         </div>
     </div>
-</section>
+}
