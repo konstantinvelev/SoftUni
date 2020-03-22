@@ -27,12 +27,9 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+                    <p>Gender</p>
             <div class="form-group">
-                <label asp-for="Input.TypeOfGender"></label>
-                <input asp-for="Input.TypeOfGender" class="form-control" />
                 <div class="text-dark label-holder d-flex justify-content-center">
-                    <label for="gender" class="h4 mb-2">Gender</label>
-                </div>
                 <select styleClass="browser-default custom-select" id="gender" name="gender">
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
