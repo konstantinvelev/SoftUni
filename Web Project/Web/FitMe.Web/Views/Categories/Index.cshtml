@@ -2,14 +2,16 @@
 @{
     this.ViewData["Title"] = "Categories";
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+
+
 
 <form asp-controller="Categories" asp-action="Mans" method="get">
-    <button type="submit" class="btn btn-primary">Mans</button>
+    <button class="btn"><i class="fa fa-male fa-10x"></i></button>
 </form>
 
-
-
-
 <form asp-controller="Categories" asp-action="Womans" method="get">
-    <button type="submit" class="btn btn-primary">Womans</button>
+    <button class="btn"><i class="fa fa-female fa-10x"></i></button>
 </form>
