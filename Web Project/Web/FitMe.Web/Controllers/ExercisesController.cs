@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
+
     using FitMe.Data.Models;
     using FitMe.Services.Data;
     using FitMe.Web.ViewModels.Categories;
@@ -61,16 +62,31 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            if (user.TypeOfGender.ToString() == "Man")
+            if (input.Gender.ToString() == "Male")
             {
-                await this.exercisesService.CreateMansDietAsync(input, user.Id);
+                await this.exercisesService.CreateMansExercisesAsync(input, user.Id);
                 return this.Redirect("/Exercises/AllForMans");
             }
             else
             {
-                await this.exercisesService.CreateWomansDietAsync(input, user.Id);
+                await this.exercisesService.CreateWomansExercisesAsync(input, user.Id);
                 return this.Redirect("/Exercises/AllForMans");
             }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Details(string exerciseId)
+        {
+            var exercise = await this.exercisesService.GetDietByIdAsync(exerciseId);
+            var viewModel = new ExerciseDetailViewModel
+            {
+                Title = exercise.Title,
+                Content = exercise.Content,
+                Gender = exercise.TypeOfGender.ToString(),
+            };
+
+            return this.View(viewModel);
         }
     }
 }

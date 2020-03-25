@@ -8,7 +8,7 @@ namespace FitMe.Web.ViewModels.Exercise
 
         public string Content { get; set; }
 
-        public Gender TypeOfGender { get; set; }
+        public string Gender { get; set; }
 
         public byte[] Video { get; set; }
 

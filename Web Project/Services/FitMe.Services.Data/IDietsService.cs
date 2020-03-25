@@ -13,5 +13,7 @@
         public Task CreateWomansDietAsync(CreateDietInputModel create, string userId);
 
         public Task CreateMansDietAsync(CreateDietInputModel create, string userId);
+
+        public Task<Diet> GetDietByIdAsync(string id);
     }
 }

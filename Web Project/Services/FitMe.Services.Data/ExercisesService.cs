@@ -18,7 +18,7 @@
             this.exerciseRepository = exerciseRepository;
         }
 
-        public async Task CreateWomansDietAsync(CreateExercisesInputModel create, string userId)
+        public async Task CreateWomansExercisesAsync(CreateExercisesInputModel create, string userId)
         {
             var exercise = new Exercise
             {
@@ -32,7 +32,7 @@
             await this.exerciseRepository.SaveChangesAsync();
         }
 
-        public async Task CreateMansDietAsync(CreateExercisesInputModel create, string userId)
+        public async Task CreateMansExercisesAsync(CreateExercisesInputModel create, string userId)
         {
             var exercise = new Exercise
             {
@@ -51,6 +51,12 @@
             var allExercise = this.exerciseRepository.All().ToList();
 
             return allExercise;
+        }
+
+        public async Task<Exercise> GetDietByIdAsync(string id)
+        {
+            var exercise = await this.exerciseRepository.GetByIdWithDeletedAsync(id);
+            return exercise;
         }
     }
 }

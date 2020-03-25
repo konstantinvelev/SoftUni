@@ -10,8 +10,10 @@
     {
         public IEnumerable<Exercise> GetAll();
 
-        public Task CreateWomansDietAsync(CreateExercisesInputModel create, string userId);
+        public Task CreateWomansExercisesAsync(CreateExercisesInputModel create, string userId);
 
-        public Task CreateMansDietAsync(CreateExercisesInputModel create, string userId);
+        public Task CreateMansExercisesAsync(CreateExercisesInputModel create, string userId);
+
+        public Task<Exercise> GetDietByIdAsync(string id);
     }
 }

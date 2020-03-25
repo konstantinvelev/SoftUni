@@ -62,7 +62,7 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            if (user.TypeOfGender.ToString() == "Man")
+            if (input.TypeOfGender.ToString() == "Male")
             {
                await this.dietsService.CreateMansDietAsync(input, user.Id);
                return this.Redirect("/Diets/AllForMans");
@@ -72,6 +72,21 @@
                 await this.dietsService.CreateWomansDietAsync(input, user.Id);
                 return this.Redirect("/Diets/AllForMans");
             }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Details(string dietId)
+        {
+            var diet = await this.dietsService.GetDietByIdAsync(dietId);
+            var viewModel = new DietsDetailViewModel
+            {
+                Title = diet.Title,
+                Description = diet.Description,
+                Gender = diet.Description,
+            };
+
+            return this.View(viewModel);
         }
     }
 }

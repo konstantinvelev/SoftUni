@@ -54,5 +54,11 @@
 
             return diets;
         }
+
+        public async Task<Diet> GetDietByIdAsync(string id)
+        {
+             var diet = await this.dietsRepository.GetByIdWithDeletedAsync(id);
+            return diet;
+        }
     }
 }
