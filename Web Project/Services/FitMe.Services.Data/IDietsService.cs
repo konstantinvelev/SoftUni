@@ -15,5 +15,7 @@
         public Task CreateMansDietAsync(CreateDietInputModel create, string userId);
 
         public Task<Diet> GetDietByIdAsync(string id);
+
+        public Task DeleteDietAsync(string id);
     }
 }

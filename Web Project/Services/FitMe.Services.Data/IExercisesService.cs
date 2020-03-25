@@ -15,5 +15,7 @@
         public Task CreateMansExercisesAsync(CreateExercisesInputModel create, string userId);
 
         public Task<Exercise> GetDietByIdAsync(string id);
+
+        public Task DeleteDietAsync(string id);
     }
 }

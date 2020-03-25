@@ -58,5 +58,12 @@
             var exercise = await this.exerciseRepository.GetByIdWithDeletedAsync(id);
             return exercise;
         }
+
+        public async Task DeleteDietAsync(string id)
+        {
+            var diet = await this.exerciseRepository.GetByIdWithDeletedAsync(id);
+            this.exerciseRepository.Delete(diet);
+            await this.exerciseRepository.SaveChangesAsync();
+        }
     }
 }

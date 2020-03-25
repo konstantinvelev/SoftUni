@@ -8,6 +8,6 @@
 
         public string Description { get; set; }
 
-        public Gender TypeOfGender { get; set; }
+        public string Gender { get; set; }
     }
 }

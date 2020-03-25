@@ -81,12 +81,28 @@
             var exercise = await this.exercisesService.GetDietByIdAsync(exerciseId);
             var viewModel = new ExerciseDetailViewModel
             {
+                Id = exercise.Id,
                 Title = exercise.Title,
                 Content = exercise.Content,
                 Gender = exercise.TypeOfGender.ToString(),
             };
 
             return this.View(viewModel);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Delete(string exerciseId)
+        {
+            var exercise = await this.exercisesService.GetDietByIdAsync(exerciseId);
+            var user = await this.userManager.GetUserAsync(this.User);
+            if (exercise.UserID == user.Id)
+            {
+                await this.exercisesService.DeleteDietAsync(exerciseId);
+                return this.Redirect("/");
+            }
+
+            return this.View("/Exercises/Details");
         }
     }
 }

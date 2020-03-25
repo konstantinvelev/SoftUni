@@ -62,10 +62,10 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            if (input.TypeOfGender.ToString() == "Male")
+            if (input.Gender.ToString() == "Male")
             {
-               await this.dietsService.CreateMansDietAsync(input, user.Id);
-               return this.Redirect("/Diets/AllForMans");
+                await this.dietsService.CreateMansDietAsync(input, user.Id);
+                return this.Redirect("/Diets/AllForMans");
             }
             else
             {
@@ -81,12 +81,28 @@
             var diet = await this.dietsService.GetDietByIdAsync(dietId);
             var viewModel = new DietsDetailViewModel
             {
+                Id=diet.Id,
                 Title = diet.Title,
                 Description = diet.Description,
                 Gender = diet.Description,
             };
 
             return this.View(viewModel);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Delete(string dietId)
+        {
+            var diet = await this.dietsService.GetDietByIdAsync(dietId);
+            var user = await this.userManager.GetUserAsync(this.User);
+            if (diet.UserId == user.Id)
+            {
+                await this.dietsService.DeleteDietAsync(dietId);
+                return this.Redirect("/");
+            }
+
+            return this.View("/Diets/Details");
         }
     }
 }

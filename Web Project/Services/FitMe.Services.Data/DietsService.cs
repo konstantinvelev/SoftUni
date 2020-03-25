@@ -57,8 +57,15 @@
 
         public async Task<Diet> GetDietByIdAsync(string id)
         {
-             var diet = await this.dietsRepository.GetByIdWithDeletedAsync(id);
+            var diet = await this.dietsRepository.GetByIdWithDeletedAsync(id);
             return diet;
+        }
+
+        public async Task DeleteDietAsync(string id)
+        {
+            var diet = await this.dietsRepository.GetByIdWithDeletedAsync(id);
+            this.dietsRepository.Delete(diet);
+            await this.dietsRepository.SaveChangesAsync();
         }
     }
 }
