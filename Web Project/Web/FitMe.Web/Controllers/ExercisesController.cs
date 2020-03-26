@@ -47,6 +47,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             return this.View();
@@ -105,6 +106,7 @@
             return this.View("/Exercises/Details");
         }
 
+        [Authorize]
         public async Task<IActionResult> YourExercises()
         {
             var user = await this.userManager.GetUserAsync(this.User);

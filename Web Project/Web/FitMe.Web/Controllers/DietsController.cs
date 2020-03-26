@@ -47,6 +47,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             return this.View();
@@ -103,6 +104,25 @@
             }
 
             return this.View("/Diets/Details");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> YourDiets()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            var diets = this.dietsService.GetDietsByUser(user.Id);
+
+            if (diets.Count() <= 0)
+            {
+                return this.Redirect("/Home/NullObjects");
+            }
+
+            var viewModel = new YourDietsViewModel
+            {
+                Diets = diets,
+            };
+
+            return this.View(viewModel);
         }
     }
 }

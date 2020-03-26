@@ -67,5 +67,12 @@
             this.dietsRepository.Delete(diet);
             await this.dietsRepository.SaveChangesAsync();
         }
+
+        public IEnumerable<Diet> GetDietsByUser(string userId)
+        {
+            var diets = this.dietsRepository.All().Where(s => s.UserId == userId).ToList();
+
+            return diets;
+        }
     }
 }
