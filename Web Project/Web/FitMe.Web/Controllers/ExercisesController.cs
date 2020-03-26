@@ -104,5 +104,23 @@
 
             return this.View("/Exercises/Details");
         }
+
+        public async Task<IActionResult> YourExercises()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            var exercises = this.exercisesService.GetExersisesByUser(user.Id);
+
+            if (exercises.Count() <= 0)
+            {
+                return this.Redirect("/Home/NullObjects");
+            }
+
+            var viewModel = new YourExercisesViewModel
+            {
+                Exercises = exercises,
+            };
+
+            return this.View(viewModel);
+        }
     }
 }

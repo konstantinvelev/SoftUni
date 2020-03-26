@@ -17,5 +17,7 @@
         public Task<Exercise> GetDietByIdAsync(string id);
 
         public Task DeleteDietAsync(string id);
+
+        public IEnumerable<Exercise> GetExersisesByUser(string userId);
     }
 }

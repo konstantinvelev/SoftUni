@@ -65,5 +65,12 @@
             this.exerciseRepository.Delete(diet);
             await this.exerciseRepository.SaveChangesAsync();
         }
+
+        public IEnumerable<Exercise> GetExersisesByUser(string userId)
+        {
+            var exercises = this.exerciseRepository.All().Where(s => s.UserID == userId).ToList();
+
+            return exercises;
+        }
     }
 }
