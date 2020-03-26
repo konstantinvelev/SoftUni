@@ -124,5 +124,27 @@
 
             return this.View(viewModel);
         }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Edit(string dietId)
+        {
+            var diet = await this.dietsService.GetDietByIdAsync(dietId);
+            var viewModel = new EditDietViewModel
+            {
+                Title = diet.Title,
+                Description = diet.Description,
+                Gender = diet.TypeOfGender.ToString(),
+            };
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Update(EditDietInputModel input, string dietId)
+        {
+            await this.dietsService.Update(dietId, input);
+            return this.Redirect("/Diets/YourDiets");
+        }
     }
 }

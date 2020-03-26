@@ -2,9 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using FitMe.Data.Models;
-
-    public class CreateDietInputModel
+   public class EditDietInputModel
     {
         [Required]
         [MinLength(3)]
@@ -12,6 +10,7 @@
         public string Title { get; set; }
 
         [Required]
+        [MaxLength(35)]
         public string Description { get; set; }
 
         [Required]

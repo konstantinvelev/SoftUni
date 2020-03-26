@@ -74,5 +74,18 @@
 
             return diets;
         }
+
+        public async Task Update(string dietId, EditDietInputModel input)
+        {
+            var diet = await this.dietsRepository.GetByIdWithDeletedAsync(dietId);
+            diet = new Diet
+            {
+                Title = input.Title,
+                Description = input.Description,
+                TypeOfGender = Enum.Parse<Gender>(input.Gender),
+            };
+            this.dietsRepository.Update(diet);
+            await this.dietsRepository.SaveChangesAsync();
+        }
     }
 }

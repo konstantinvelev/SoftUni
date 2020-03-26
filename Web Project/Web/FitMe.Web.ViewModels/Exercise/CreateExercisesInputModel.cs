@@ -12,7 +12,7 @@
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(35)]
+        [MaxLength(int.MaxValue)]
         public string Content { get; set; }
 
         [Required]

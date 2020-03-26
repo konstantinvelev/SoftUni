@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Diets";
+}
+
+<form asp-controller="Diets" asp-action="Create" method="get">
+    <button type="submit" class="btn btn-primary">Add Diet</button>
+</form>
+
+
+
+@foreach (var item in Model.Diets)
+{
+    <div class="row blog-page">
+        <div class="col-md-9">
+            <p>
+                @item.Title
+            </p>
+            <div class="blog margin-bottom-40">
+                <div>
+                    @item.Description
+                </div>
+                <div class="button-holder">
+                    <a href="/Diets/Edit?dietId=@item.Id" class="btn btn-info text-uppercase">Edit</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

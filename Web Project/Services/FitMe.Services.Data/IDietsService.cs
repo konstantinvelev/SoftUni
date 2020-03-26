@@ -19,5 +19,7 @@
         public Task DeleteDietAsync(string id);
 
         public IEnumerable<Diet> GetDietsByUser(string userId);
+
+        public Task Update(string dietId, EditDietInputModel input);
     }
 }
