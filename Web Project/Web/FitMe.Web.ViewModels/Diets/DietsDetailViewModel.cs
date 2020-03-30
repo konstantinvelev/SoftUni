@@ -13,5 +13,7 @@
         public string UserUserName { get; set; }
 
         public string CreatedOn { get; set; }
+
+        public int VotesCount { get; set; }
     }
 }

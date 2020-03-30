@@ -72,14 +72,6 @@
                 .HasForeignKey(s => s.ExerciseId)
                 .OnDelete(DeleteBehavior.Restrict);
             });
-
-            builder.Entity<Vote>(s =>
-            {
-                s.HasOne(p => p.Exercise)
-                .WithMany(s => s.Votes)
-                .HasForeignKey(s => s.ExerciseId)
-                .OnDelete(DeleteBehavior.Restrict);
-            });
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 

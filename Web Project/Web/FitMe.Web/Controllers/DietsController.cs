@@ -84,7 +84,7 @@
 
             var user = await this.userManager.GetUserAsync(this.User);
             var diet = await this.dietsService.GetDietByIdAsync(dietId);
-          
+
             var viewModel = new DietsDetailViewModel()
             {
                 Id = diet.Id,
@@ -93,6 +93,7 @@
                 Gender = diet.TypeOfGender.ToString(),
                 CreatedOn = diet.CreatedOn.ToString(),
                 UserUserName = user.UserName,
+                VotesCount = diet.Votes.Count,
             };
 
             if (viewModel == null)
