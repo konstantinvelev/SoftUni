@@ -79,14 +79,24 @@
         [Authorize]
         public async Task<IActionResult> Details(string exerciseId)
         {
+            var user = await this.userManager.GetUserAsync(this.User);
             var exercise = await this.exercisesService.GetDietByIdAsync(exerciseId);
+
             var viewModel = new ExerciseDetailViewModel
             {
                 Id = exercise.Id,
                 Title = exercise.Title,
                 Content = exercise.Content,
                 Gender = exercise.TypeOfGender.ToString(),
+                CreatedOn = exercise.CreatedOn.ToString(),
+                UserUserName = user.UserName,
+                Video = exercise.Video,
             };
+
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
 
             return this.View(viewModel);
         }

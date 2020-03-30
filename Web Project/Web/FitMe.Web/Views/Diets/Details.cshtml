@@ -4,10 +4,7 @@
 }
 
 <h1 class="text-center"><span class="badge badge-pill badge-dark">Details</span></h1>
-<div class="container-fluid bg-blur w-50 text-center">
-    <h2 class="text-dark text-center">@Model.Title</h2>
-    <h3 class="text-dark text-center mt-2">@Model.Description</h3>
-</div>
+
 
 
 @model FitMe.Web.ViewModels.Diets.DietsDetailViewModel
@@ -47,6 +44,11 @@
                                 </a>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="card-header">
+                    <div class="media flex-wrap w-100 align-items-center">
+                        @Model.Description
                     </div>
                 </div>
                 <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">

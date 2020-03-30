@@ -4,11 +4,88 @@
 }
 
 <h1 class="text-center"><span class="badge badge-pill badge-dark">Details</span></h1>
-<div class="container-fluid bg-blur w-50 text-center">
-    <h2 class="text-dark text-center">@Model.Title</h2>
-    <video width="320" height="240" controls>
-        <source src="https://www.youtube.com/watch?v=YafXXQeBnaI&list=RDYafXXQeBnaI&start_radio=1" type="video/mp4">
-        <source src="https://www.youtube.com/watch?v=YafXXQeBnaI&list=RDYafXXQeBnaI&start_radio=1" type="video/ogg">
-    </video>
-    <h3 class="text-dark text-center mt-2">@Model.Content</h3>
+
+
+
+@model FitMe.Web.ViewModels.Exercise.ExerciseDetailViewModel
+@{
+    this.ViewData["Title"] = Model.Title;
+}
+
+@if (this.TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-success">
+        @this.TempData["InfoMessage"]
+    </div>
+}
+
+<h1>@Model.Title</h1>
+<div class="container-fluid mt-100">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="media flex-wrap w-100 align-items-center">
+                        <div class="media-body ml-3">
+                            @Model.UserUserName
+                            <div class="text-muted small">@Model.CreatedOn</div>
+                        </div>
+                        <div class="text-muted small ml-3">
+                            <form id="votesForm" method="post"></form>
+                            <div>
+                                <a href="#" onclick="sendVote(@Model.Id, true)">
+                                    <i class="fa fa-thumbs-up"></i>
+                                </a>
+                            </div>
+                            <div id="votesCount">@*@Model.VotesCount*@</div>
+                            <div>
+                                <a href="#" onclick="sendVote(@Model.Id, false)">
+                                    <i class="fa fa-thumbs-down"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header">
+                    <div class="media flex-wrap w-100 align-items-center">
+                        @Model.Content
+                    </div>
+                </div>
+                <div class="card-header">
+                    <div class="media flex-wrap w-100 align-items-center">
+                        @Model.Video
+                    </div>
+                </div>
+                <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                    <div class="px-4 pt-3">
+                        <i class="fa fa-heart text-danger"></i>&nbsp; <span class="align-middle">0</span> <span class="text-muted d-inline-flex align-items-center align-middle ml-4">
+                            <i class="fa fa-eye text-muted fsize-3"></i>&nbsp; <span class="align-middle">0</span>
+                        </span>
+                    </div>
+                    <div class="px-4 pt-3"> <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Reply</button> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+@section Scripts {
+    <script>
+        function sendVote(postId, isUpVote) {
+            var token = $("#votesForm input[name=__RequestVerificationToken]").val();
+            var json = { postId: postId, isUpVote: isUpVote };
+            $.ajax({
+                url: "/api/votes",
+                type: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: { 'X-CSRF-TOKEN': token },
+                success: function (data) {
+                    $("#votesCount").html(data.votesCount);
+                }
+            });
+        }
+    </script>
+}
