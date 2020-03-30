@@ -5,6 +5,7 @@
 
     using FitMe.Data.Models;
     using FitMe.Services.Data;
+    using FitMe.Services.Mapping;
     using FitMe.Web.ViewModels.Diets;
     using FitMe.Web.ViewModels.Exercise;
     using Microsoft.AspNetCore.Authorization;
@@ -57,7 +58,8 @@
         [Authorize]
         public async Task<IActionResult> Create(CreateDietInputModel input)
         {
-            if (!ModelState.IsValid)
+            var diet = AutoMapperConfig.MapperInstance.Map<Diet>(input);
+            if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }

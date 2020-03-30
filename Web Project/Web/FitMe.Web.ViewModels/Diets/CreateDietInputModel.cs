@@ -10,9 +10,13 @@
         [Required]
         [MinLength(3)]
         [MaxLength(35)]
+        [Display(Name = "Title")]
+
         public string Title { get; set; }
 
         [Required]
+        [Display(Name = "Description")]
+
         public string Description { get; set; }
 
         [Required]
