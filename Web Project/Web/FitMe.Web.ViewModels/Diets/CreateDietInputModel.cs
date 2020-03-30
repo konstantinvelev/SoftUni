@@ -3,8 +3,9 @@
     using System.ComponentModel.DataAnnotations;
 
     using FitMe.Data.Models;
+    using FitMe.Services.Mapping;
 
-    public class CreateDietInputModel
+    public class CreateDietInputModel : IMapTo<Diet>
     {
         [Required]
         [MinLength(3)]

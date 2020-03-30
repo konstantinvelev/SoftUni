@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Edit";
 }
 
@@ -12,27 +11,21 @@
         </div>
     </div>
     <div>
-        <h5> Old title: @Model.Title</h5>
         <h5>New title:</h5>
     </div>
-    <input type="text" class="form-control" id="title" name="title" />
+    <input type="text" class="form-control" id="title" name="title"  value="@Model.Title" ></input>
     <div class="form-group">
         <div class="text-dark label-holder d-flex justify-content-center">
             <label for="description" class="h4 mb-2">Description</label>
         </div>
         <div>
-            <h5> Old description: @Model.Description</h5>
             <h5>New description:</h5>
         </div>
-        <input type="text" class="form-control" id="description" name="description" />
+        <input type="text"class="form-control" id="description" name="description" value="@Model.Description"></input>
     </div>
     <div class="form-group">
         <div class="text-dark label-holder d-flex justify-content-center">
-            <label for="description" class="h4 mb-2">Gender</label>
-        </div>
-        <div>
-            <h5> Old genre: @Model.Gender</h5>
-            <h5>New genre:</h5>
+            <label for="gender" class="h4 mb-2">Gender</label>
         </div>
         <div class="text-dark label-holder d-flex justify-content-center">
             <select styleClass="browser-default custom-select" id="gender" name="gender">
@@ -41,9 +34,8 @@
             </select>
         </div>
     </div>
-    <form asp-controller="Diets" asp-action="Update" method="post">
+
+    <form asp-controller="Diets" asp-action="Edit" method="post">
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
-
 </form>
-

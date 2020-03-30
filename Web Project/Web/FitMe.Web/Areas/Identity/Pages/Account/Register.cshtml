@@ -27,13 +27,14 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-                    <p>Gender</p>
+            <p>Gender</p>
             <div class="form-group">
                 <div class="text-dark label-holder d-flex justify-content-center">
-                <select styleClass="browser-default custom-select" id="gender" name="gender">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
+                    <select styleClass="browser-default custom-select" id="gender" name="gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>

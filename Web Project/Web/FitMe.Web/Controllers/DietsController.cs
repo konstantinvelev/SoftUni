@@ -79,14 +79,24 @@
         [Authorize]
         public async Task<IActionResult> Details(string dietId)
         {
+
+            var user = await this.userManager.GetUserAsync(this.User);
             var diet = await this.dietsService.GetDietByIdAsync(dietId);
-            var viewModel = new DietsDetailViewModel
+          
+            var viewModel = new DietsDetailViewModel()
             {
-                Id=diet.Id,
+                Id = diet.Id,
                 Title = diet.Title,
                 Description = diet.Description,
-                Gender = diet.Description,
+                Gender = diet.TypeOfGender.ToString(),
+                CreatedOn = diet.CreatedOn.ToString(),
+                UserUserName = user.UserName,
             };
+
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
 
             return this.View(viewModel);
         }
@@ -141,7 +151,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Update(EditDietInputModel input, string dietId)
+        public async Task<IActionResult> Edit(EditDietInputModel input, string dietId)
         {
             await this.dietsService.Update(dietId, input);
             return this.Redirect("/Diets/YourDiets");
