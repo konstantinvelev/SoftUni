@@ -15,13 +15,16 @@
     {
         private readonly IExercisesService exercisesService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly ICommentsService commentsService;
 
         public ExercisesController(
             IExercisesService exercisesService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            ICommentsService commentsService)
         {
             this.exercisesService = exercisesService;
             this.userManager = userManager;
+            this.commentsService = commentsService;
         }
 
         public IActionResult AllForMans()
@@ -80,7 +83,9 @@
         public async Task<IActionResult> Details(string exerciseId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            var exercise = await this.exercisesService.GetDietByIdAsync(exerciseId);
+            var exercise = await this.exercisesService.GetExercisesByIdAsync(exerciseId);
+
+            var comments = this.commentsService.All();
 
             var viewModel = new ExerciseDetailViewModel
             {
@@ -92,6 +97,7 @@
                 UserUserName = user.UserName,
                 Video = exercise.Video,
                 VotesCount = exercise.Votes.Count(),
+                Comments = comments,
             };
 
             if (viewModel == null)
@@ -106,11 +112,12 @@
         [Authorize]
         public async Task<IActionResult> Delete(string exerciseId)
         {
-            var exercise = await this.exercisesService.GetDietByIdAsync(exerciseId);
+            var exercise = await this.exercisesService.GetExercisesByIdAsync(exerciseId);
             var user = await this.userManager.GetUserAsync(this.User);
+            
             if (exercise.UserID == user.Id)
             {
-                await this.exercisesService.DeleteDietAsync(exerciseId);
+                await this.exercisesService.DeleteExercisesAsync(exerciseId);
                 return this.Redirect("/");
             }
 
@@ -140,7 +147,7 @@
         [Authorize]
         public async Task<IActionResult> Edit(string dietId)
         {
-            var exercises = await this.exercisesService.GetDietByIdAsync(dietId);
+            var exercises = await this.exercisesService.GetExercisesByIdAsync(dietId);
             //var viewModel = new EditDietViewModel
             //{
             //    Title = exercises.Title,

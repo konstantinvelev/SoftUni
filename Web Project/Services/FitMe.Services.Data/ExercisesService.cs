@@ -53,13 +53,13 @@
             return allExercise;
         }
 
-        public async Task<Exercise> GetDietByIdAsync(string id)
+        public async Task<Exercise> GetExercisesByIdAsync(string id)
         {
             var exercise = await this.exerciseRepository.GetByIdWithDeletedAsync(id);
             return exercise;
         }
 
-        public async Task DeleteDietAsync(string id)
+        public async Task DeleteExercisesAsync(string id)
         {
             var diet = await this.exerciseRepository.GetByIdWithDeletedAsync(id);
             this.exerciseRepository.Delete(diet);

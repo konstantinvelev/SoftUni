@@ -1,8 +1,5 @@
 ﻿namespace FitMe.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using FitMe.Data.Models;
@@ -11,7 +8,6 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
 
     [ApiController]
     [Route("api/[controller]")]

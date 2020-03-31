@@ -1,5 +1,9 @@
 ﻿namespace FitMe.Web.ViewModels.Exercise
 {
+    using System.Collections.Generic;
+
+    using FitMe.Data.Models;
+
    public class ExerciseDetailViewModel
     {
         public string Id { get; set; }
@@ -17,5 +21,7 @@
         public byte[] Video { get; set; }
 
         public int VotesCount { get; set; }
+
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }
