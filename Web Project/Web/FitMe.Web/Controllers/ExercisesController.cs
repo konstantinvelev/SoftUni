@@ -91,6 +91,7 @@
                 CreatedOn = exercise.CreatedOn.ToString(),
                 UserUserName = user.UserName,
                 Video = exercise.Video,
+                VotesCount = exercise.Votes.Count(),
             };
 
             if (viewModel == null)

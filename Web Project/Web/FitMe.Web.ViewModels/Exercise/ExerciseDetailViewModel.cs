@@ -15,5 +15,7 @@
         public string CreatedOn { get; set; }
 
         public byte[] Video { get; set; }
+
+        public int VotesCount { get; set; }
     }
 }
