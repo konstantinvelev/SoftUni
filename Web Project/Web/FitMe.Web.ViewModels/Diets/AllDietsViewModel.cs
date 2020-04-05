@@ -1,4 +1,4 @@
-﻿namespace FitMe.Web.ViewModels.Exercise
+﻿namespace FitMe.Web.ViewModels.Diets
 {
     using System;
     using System.Collections.Generic;
@@ -8,8 +8,10 @@
 
     public class AllDietsViewModel
     {
-        public IEnumerable<Diet> Diets { get; set; }
+        public IEnumerable<PostDietViewModel> Diets { get; set; }
 
         public int PagesCount { get; set; }
+
+        public int CurrentPage { get; set; }
     }
 }

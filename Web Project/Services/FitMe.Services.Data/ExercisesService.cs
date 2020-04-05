@@ -46,11 +46,19 @@
             await this.exerciseRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<Exercise> GetAll()
+        public IEnumerable<Exercise> GetAll(int? take = null, int skip = 0)
         {
-            var allExercise = this.exerciseRepository.All().ToList();
+            var query = this.exerciseRepository.All()
+                .OrderByDescending(s => s.CreatedOn)
+                .Skip(skip);
 
-            return allExercise;
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+
+            return query.ToList();
+
         }
 
         public async Task<Exercise> GetExercisesByIdAsync(string id)
@@ -71,6 +79,12 @@
             var exercises = this.exerciseRepository.All().Where(s => s.UserID == userId).ToList();
 
             return exercises;
+        }
+
+        public int GetCount()
+        {
+            var count = this.exerciseRepository.All().Count();
+            return count;
         }
     }
 }

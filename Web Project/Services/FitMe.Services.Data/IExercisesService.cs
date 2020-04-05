@@ -8,16 +8,18 @@
 
     public interface IExercisesService
     {
-        public IEnumerable<Exercise> GetAll();
+         IEnumerable<Exercise> GetAll(int? take = null, int skip = 0);
 
-        public Task CreateWomansExercisesAsync(CreateExercisesInputModel create, string userId);
+         Task CreateWomansExercisesAsync(CreateExercisesInputModel create, string userId);
 
-        public Task CreateMansExercisesAsync(CreateExercisesInputModel create, string userId);
+         Task CreateMansExercisesAsync(CreateExercisesInputModel create, string userId);
 
-        public Task<Exercise> GetExercisesByIdAsync(string id);
+         Task<Exercise> GetExercisesByIdAsync(string id);
 
-        public Task DeleteExercisesAsync(string id);
+         Task DeleteExercisesAsync(string id);
 
-        public IEnumerable<Exercise> GetExersisesByUser(string userId);
+         IEnumerable<Exercise> GetExersisesByUser(string userId);
+
+        int GetCount();
     }
 }

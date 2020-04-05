@@ -1,5 +1,7 @@
 ﻿namespace FitMe.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -13,39 +15,84 @@
 
     public class ExercisesController : BaseController
     {
+        private const int ItemsPerPage = 5;
+
         private readonly IExercisesService exercisesService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ICommentsService commentsService;
+        private readonly IUsersService usersService;
 
         public ExercisesController(
             IExercisesService exercisesService,
             UserManager<ApplicationUser> userManager,
-            ICommentsService commentsService)
+            ICommentsService commentsService,
+            IUsersService usersService)
         {
             this.exercisesService = exercisesService;
             this.userManager = userManager;
             this.commentsService = commentsService;
+            this.usersService = usersService;
         }
 
-        public IActionResult AllForMans()
+        public IActionResult AllForMans(int? page = 1)
         {
-            var all = this.exercisesService.GetAll().Where(s => s.TypeOfGender.ToString() == "Man");
+            var all = this.exercisesService.GetAll(ItemsPerPage, (int)((page - 1) * ItemsPerPage)).Where(s => s.TypeOfGender.ToString() == "Man");
+            var list = new List<ExerciseViewModel>();
+            foreach (var item in all)
+            {
+                var user = this.usersService.GetUserById(item.UserID);
+                var model = new ExerciseViewModel
+                {
+                    Id = item.Id,
+                    Title = item.Title,
+                    Content = item.Content,
+                    CreatedOn = item.CreatedOn,
+                    CommentsCount = item.Commetns.Count,
+                    Gender = item.TypeOfGender.ToString(),
+                    UserUserName = user.UserName,
+                };
+                list.Add(model);
+            }
+
             var viewModel = new AllExercisesViewMode
             {
-                Exercises = all,
+                Exercises = list,
+                CurrentPage = (int)page,
             };
 
+            var count = this.exercisesService.GetCount();
+            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
             return this.View(viewModel);
         }
 
-        public IActionResult AllForWomans()
+        public IActionResult AllForWomans(int? page = 1)
         {
-            var all = this.exercisesService.GetAll().Where(s => s.TypeOfGender.ToString() == "Woman");
+            var all = this.exercisesService.GetAll(ItemsPerPage, (int)((page - 1) * ItemsPerPage)).Where(s => s.TypeOfGender.ToString() == "Woman");
+            var list = new List<ExerciseViewModel>();
+            foreach (var item in all)
+            {
+                var user = this.usersService.GetUserById(item.UserID);
+                var model = new ExerciseViewModel
+                {
+                    Id = item.Id,
+                    Title = item.Title,
+                    Content = item.Content,
+                    CreatedOn = item.CreatedOn,
+                    CommentsCount = item.Commetns.Count,
+                    Gender = item.TypeOfGender.ToString(),
+                    UserUserName = user.UserName,
+                };
+                list.Add(model);
+            }
+
             var viewModel = new AllExercisesViewMode
             {
-                Exercises = all,
+                Exercises = list,
+                CurrentPage = (int)page,
             };
 
+            var count = this.exercisesService.GetCount();
+            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
             return this.View(viewModel);
         }
 
@@ -114,7 +161,7 @@
         {
             var exercise = await this.exercisesService.GetExercisesByIdAsync(exerciseId);
             var user = await this.userManager.GetUserAsync(this.User);
-            
+
             if (exercise.UserID == user.Id)
             {
                 await this.exercisesService.DeleteExercisesAsync(exerciseId);

@@ -1,6 +1,7 @@
 ﻿namespace FitMe.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -19,26 +20,41 @@
 
         private readonly IDietsService dietsService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUsersService usersService;
 
         public DietsController(
             IDietsService dietsService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IUsersService usersService)
         {
             this.dietsService = dietsService;
             this.userManager = userManager;
+            this.usersService = usersService;
         }
 
-        public IActionResult All(int? page)
+        public async Task<IActionResult> All(int? page = 1)
         {
-            if (page == 0 || !page.HasValue)
+            var all = this.dietsService.GetAll(ItemsPerPage, (int)((page - 1) * ItemsPerPage));
+            var list = new List<PostDietViewModel>();
+            foreach (var item in all)
             {
-                page = 1;
+                var user = this.usersService.GetUserById(item.UserId);
+                var dietsViewModel = new PostDietViewModel
+                {
+                    Id = item.Id,
+                    Title = item.Title,
+                    Description = item.Description,
+                    UserUserName = user.UserName,
+                    CommentsCount = item.Comments.Count,
+                    CreatedOn = item.CreatedOn,
+                };
+                list.Add(dietsViewModel);
             }
 
-            var all = this.dietsService.GetAll(ItemsPerPage, (int)((page - 1) * ItemsPerPage));
             var viewModel = new AllDietsViewModel
             {
-                Diets = all,
+                Diets = list,
+                CurrentPage = (int)page,
             };
 
             var count = this.dietsService.GetCount();

@@ -2,6 +2,10 @@
     this.ViewData["Title"] = "All Exercise";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+
 <form asp-controller="Exercises" asp-action="Create" method="get">
     <button type="submit" class="btn btn-primary">Add Exercises</button>
 </form>
@@ -9,54 +13,41 @@
 
 @foreach (var item in Model.Exercises)
 {
-    if (item.TypeOfGender.ToString() == "Women")
+    if (item.Gender.ToString() == "Women")
     {
         continue;
     }
     <div class="row blog-page">
         <div class="col-md-9">
-
-            <p>
-                @item.Title
-            </p>
-            <div class="blog margin-bottom-40">
-
-                <iframe width="420" height="315"
-                        src="https://www.youtube.com/watch?v=dluB5VE1m1k&feature=youtu.be">
-                </iframe>
-
-
-                <div class="blog-img">
-                    <div class="responsive-video">
-                        <iframe src="https://www.youtube.com/embed/dluB5VE1m1k" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+            <div class="row blog-page">
+                <div class="col-md-9">
+                    <div class="blog margin-bottom-40">
+                        <div class="blog-img">
+                            <div class="responsive-video">
+                                <iframe src="https://www.youtube.com/embed/dluB5VE1m1k" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                            </div>
+                        </div>
+                        <div class="button-holder">
+                            <a href="/Exercises/Details?exerciseId=@item.Id" class="btn btn-info text-decoration-none">Info</a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">@item.Title</h4>
+                            <ul class="list-inline list-unstyled text-right">
+                                <li class="list-inline-item">
+                                    <i class="fas fa-user-edit"></i> @item.UserUserName
+                                </li>
+                                <li class="list-inline-item">
+                                    <i class="fas fa-calendar-alt"></i> @item.CreatedOn
+                                </li>
+                                <li class="list-inline-item">
+                                    <i class="fas fa-comment-dots"></i> @item.CommentsCount comments
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div class="button-holder">
-                    <a href="/Exercises/Details?exerciseId=@item.Id" class="btn btn-info text-decoration-none">Info</a>
-                </div>
-
             </div>
         </div>
     </div>
+
 }
-
-
-
-<div id="player-and-controls-wrapper" class="text-center full-height full-width clearfix video-resource-wrapper embed-responsive embed-responsive-16by9">
-    <script src="https://www.youtube.com/watch?v=YafXXQeBnaI&list=RDYafXXQeBnaI&index=1"></script>
-    <iframe id="player" frameborder="0" allowfullscreen="1" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" title="YouTube video player" width="100%" height="100%" src="https://www.youtube.com/watch?v=YafXXQeBnaI&list=RDYafXXQeBnaI&index=1"></iframe>
-    <div class="speed-controls">
-        <button id="speed-control-down"><i class="fa fa-fw fa-chevron-down"></i></button>
-        <span id="speed-value">1</span>
-        <button id="speed-control-up"><i class="fa fa-fw fa-chevron-up"></i></button>
-    </div>
-    <div class="video-controls">
-        <div class="pull-left">
-            <button id="play-pause"><i class="fa fa-fw fa-play"></i></button>
-            <button id="mute-unmute"><i class="fa fa-fw fa-volume-up"></i></button>
-        </div>
-        <div class="pull-right" id="change-screen-wrapper">
-            <button id="fullscreen"><i class="fa fa-fw fa-arrows-alt"></i></button>
-        </div>
-    </div>
-</div>

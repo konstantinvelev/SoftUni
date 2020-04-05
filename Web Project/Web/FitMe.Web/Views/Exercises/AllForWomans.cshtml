@@ -2,35 +2,46 @@
     this.ViewData["Title"] = "All Exercise";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+
 <form asp-controller="Exercises" asp-action="Create" method="get">
     <button type="submit" class="btn btn-primary">Add Exercises</button>
 </form>
 
 @foreach (var item in Model.Exercises)
 {
-    if (item.TypeOfGender.ToString() == "Man")
+    if (item.Gender.ToString() == "Man")
     {
         continue;
     }
     <div class="row blog-page">
         <div class="col-md-9">
-
-            <p>
-                @item.Title
-            </p>
-            <div class="blog margin-bottom-40">
-
-
-                <div class="blog-img">
-                    <div class="responsive-video">
-                        <iframe src="https://www.youtube.com/watch?v=iGJBBraiivo&list=RDYafXXQeBnaI&index=3" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
-                    </div>
-                </div>
-                <div class="button-holder">
-                    <a href="/Exercises/Details?exerciseId=@item.Id" class="btn btn-info text-decoration-none">Info</a>
-                </div>
-
+            <div class="media-body">
+                <h4 class="media-heading">@item.Title</h4>
+                <ul class="list-inline list-unstyled text-right">
+                    <li class="list-inline-item">
+                        <i class="fas fa-user-edit"></i> @item.UserUserName
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="fas fa-calendar-alt"></i> @item.CreatedOn
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="fas fa-comment-dots"></i> @item.CommentsCount comments
+                    </li>
+                </ul>
             </div>
+
+            <div class="blog-img">
+                <div class="responsive-video">
+                    <iframe src="https://www.youtube.com/watch?v=iGJBBraiivo&list=RDYafXXQeBnaI&index=3" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                </div>
+            </div>
+            <div class="button-holder">
+                <a href="/Exercises/Details?exerciseId=@item.Id" class="btn btn-info text-decoration-none">Info</a>
+            </div>
+
         </div>
     </div>
 }
