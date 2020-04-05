@@ -22,37 +22,30 @@
             this.usersRepository = usersRepository;
         }
 
-        public async Task CreateWomansDietAsync(CreateDietInputModel create, string userId)
+        public async Task CreateDietAsync(CreateDietInputModel create, string userId)
         {
             var diet = new Diet
             {
                 Title = create.Title,
                 Description = create.Description,
-                TypeOfGender = Enum.Parse<Gender>("Woman"),
                 UserId = userId,
             };
             await this.dietsRepository.AddAsync(diet);
             await this.dietsRepository.SaveChangesAsync();
         }
 
-        public async Task CreateMansDietAsync(CreateDietInputModel create, string userId)
+        public IEnumerable<Diet> GetAll(int? take = null, int skip = 0)
         {
-            var diet = new Diet
+            var query = this.dietsRepository.All()
+                .OrderByDescending(s=> s.CreatedOn)
+                .Skip(skip);
+
+            if (take.HasValue)
             {
-                Title = create.Title,
-                Description = create.Description,
-                TypeOfGender = Enum.Parse<Gender>("Man"),
-                UserId = userId,
-            };
-            await this.dietsRepository.AddAsync(diet);
-            await this.dietsRepository.SaveChangesAsync();
-        }
+                query = query.Take(take.Value);
+            }
 
-        public IEnumerable<Diet> GetAll()
-        {
-            var diets = this.dietsRepository.All().ToList();
-
-            return diets;
+            return query.ToList();
         }
 
         public async Task<Diet> GetDietByIdAsync(string id)
@@ -82,10 +75,16 @@
             {
                 Title = input.Title,
                 Description = input.Description,
-                TypeOfGender = Enum.Parse<Gender>(input.Gender),
             };
             this.dietsRepository.Update(diet);
             await this.dietsRepository.SaveChangesAsync();
+        }
+
+        public int GetCount()
+        {
+            var count = this.dietsRepository.All().Count();
+
+            return count;
         }
     }
 }

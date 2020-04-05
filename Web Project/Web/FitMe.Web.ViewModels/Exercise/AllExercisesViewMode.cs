@@ -7,5 +7,7 @@
     public class AllExercisesViewMode
     {
         public IEnumerable<Exercise> Exercises { get; set; }
+
+        public int PagesCount { get; set; }
     }
 }

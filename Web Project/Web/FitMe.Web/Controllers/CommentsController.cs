@@ -31,13 +31,13 @@
 
         [HttpGet]
         [Authorize]
-        public IActionResult Create()
+        public IActionResult Create(string postId)
         {
             return this.View();
         }
 
-        [HttpPost ("/Comments/Create")]
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> Create(string postId, CreateCommentInputModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);

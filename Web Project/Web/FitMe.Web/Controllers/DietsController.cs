@@ -1,5 +1,6 @@
 ﻿namespace FitMe.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -14,6 +15,8 @@
 
     public class DietsController : BaseController
     {
+        private const int ItemsPerPage = 5;
+
         private readonly IDietsService dietsService;
         private readonly UserManager<ApplicationUser> userManager;
 
@@ -25,25 +28,21 @@
             this.userManager = userManager;
         }
 
-        public IActionResult AllForMans()
+        public IActionResult All(int? page)
         {
-            var all = this.dietsService.GetAll().Where(s => s.TypeOfGender.ToString() == "Man");
+            if (page == 0 || !page.HasValue)
+            {
+                page = 1;
+            }
+
+            var all = this.dietsService.GetAll(ItemsPerPage, (int)((page - 1) * ItemsPerPage));
             var viewModel = new AllDietsViewModel
             {
                 Diets = all,
             };
 
-            return this.View(viewModel);
-        }
-
-        public IActionResult AllForWomans()
-        {
-            var all = this.dietsService.GetAll().Where(s => s.TypeOfGender.ToString() == "Woman");
-            var viewModel = new AllDietsViewModel
-            {
-                Diets = all,
-            };
-
+            var count = this.dietsService.GetCount();
+            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
             return this.View(viewModel);
         }
 
@@ -65,16 +64,10 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            if (input.Gender.ToString() == "Male")
-            {
-                await this.dietsService.CreateMansDietAsync(input, user.Id);
-                return this.Redirect("/Diets/AllForMans");
-            }
-            else
-            {
-                await this.dietsService.CreateWomansDietAsync(input, user.Id);
-                return this.Redirect("/Diets/AllForMans");
-            }
+
+            await this.dietsService.CreateDietAsync(input, user.Id);
+            return this.Redirect("/Diets/All");
+
         }
 
         [HttpGet]
@@ -90,7 +83,6 @@
                 Id = diet.Id,
                 Title = diet.Title,
                 Description = diet.Description,
-                Gender = diet.TypeOfGender.ToString(),
                 CreatedOn = diet.CreatedOn.ToString(),
                 UserUserName = user.UserName,
                 VotesCount = diet.Votes.Count,
@@ -147,7 +139,6 @@
             {
                 Title = diet.Title,
                 Description = diet.Description,
-                Gender = diet.TypeOfGender.ToString(),
             };
             return this.View(viewModel);
         }

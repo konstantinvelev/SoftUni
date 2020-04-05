@@ -18,8 +18,5 @@
         [Display(Name = "Description")]
 
         public string Description { get; set; }
-
-        [Required]
-        public string Gender { get; set; }
     }
 }

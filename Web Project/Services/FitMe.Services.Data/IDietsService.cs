@@ -8,18 +8,18 @@
 
     public interface IDietsService
     {
-        public IEnumerable<Diet> GetAll();
+        IEnumerable<Diet> GetAll(int? take = null, int skip = 0);
 
-        public Task CreateWomansDietAsync(CreateDietInputModel create, string userId);
+        Task CreateDietAsync(CreateDietInputModel create, string userId);
 
-        public Task CreateMansDietAsync(CreateDietInputModel create, string userId);
+        Task<Diet> GetDietByIdAsync(string id);
 
-        public Task<Diet> GetDietByIdAsync(string id);
+        Task DeleteDietAsync(string id);
 
-        public Task DeleteDietAsync(string id);
+        IEnumerable<Diet> GetDietsByUser(string userId);
 
-        public IEnumerable<Diet> GetDietsByUser(string userId);
+        Task Update(string dietId, EditDietInputModel input);
 
-        public Task Update(string dietId, EditDietInputModel input);
+        int GetCount();
     }
 }

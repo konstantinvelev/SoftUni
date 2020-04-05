@@ -26,9 +26,6 @@ namespace FitMe.Data.Models
         public ICollection<Comment> Comments { get; set; }
 
         [Required]
-        public Gender TypeOfGender { get; set; }
-
-        [Required]
         public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }

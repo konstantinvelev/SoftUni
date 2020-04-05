@@ -9,5 +9,7 @@
     public class AllDietsViewModel
     {
         public IEnumerable<Diet> Diets { get; set; }
+
+        public int PagesCount { get; set; }
     }
 }
