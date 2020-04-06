@@ -7,7 +7,6 @@
 
     using FitMe.Data.Models;
     using FitMe.Services.Data;
-    using FitMe.Web.ViewModels.Categories;
     using FitMe.Web.ViewModels.Exercise;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -34,7 +33,7 @@
             this.usersService = usersService;
         }
 
-        public IActionResult AllForMans(int? page = 1)
+        public async Task<IActionResult> AllForMans(int? page = 1)
         {
             var all = this.exercisesService.GetAll(ItemsPerPage, (int)((page - 1) * ItemsPerPage)).Where(s => s.TypeOfGender.ToString() == "Man");
             var list = new List<ExerciseViewModel>();
@@ -54,20 +53,20 @@
                 list.Add(model);
             }
 
-            var viewModel = new AllExercisesViewMode
+            var viewModel = new AllExercisesViewModel
             {
                 Exercises = list,
                 CurrentPage = (int)page,
             };
 
-            var count = this.exercisesService.GetCount();
-            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
+            var exercises = this.exercisesService.GetAll().Where(s=> s.TypeOfGender.ToString() == "Man");
+            viewModel.PagesCount = (int)Math.Ceiling((double)exercises.Count() / ItemsPerPage);
             return this.View(viewModel);
         }
 
-        public IActionResult AllForWomans(int? page = 1)
+        public async Task<IActionResult> AllForWomans(int? page = 1)
         {
-            var all = this.exercisesService.GetAll(ItemsPerPage, (int)((page - 1) * ItemsPerPage)).Where(s => s.TypeOfGender.ToString() == "Woman");
+            var all = this.exercisesService.GetAll(ItemsPerPage, (int)((page - 1) * ItemsPerPage)).Where(s => s.TypeOfGender == 0);
             var list = new List<ExerciseViewModel>();
             foreach (var item in all)
             {
@@ -85,14 +84,14 @@
                 list.Add(model);
             }
 
-            var viewModel = new AllExercisesViewMode
+            var viewModel = new AllExercisesViewModel
             {
                 Exercises = list,
                 CurrentPage = (int)page,
             };
 
-            var count = this.exercisesService.GetCount();
-            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
+            var exercises = this.exercisesService.GetAll().Where(s => s.TypeOfGender == 0);
+            viewModel.PagesCount = (int)Math.Ceiling((double)exercises.Count() / ItemsPerPage);
             return this.View(viewModel);
         }
 
@@ -121,7 +120,7 @@
             else
             {
                 await this.exercisesService.CreateWomansExercisesAsync(input, user.Id);
-                return this.Redirect("/Exercises/AllForMans");
+                return this.Redirect("/Exercises/AllForWomans");
             }
         }
 

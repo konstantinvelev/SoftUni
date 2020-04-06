@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace FitMe.Web.ViewModels.Categories
+﻿namespace FitMe.Web.ViewModels.Exercise
 {
+    using System;
+
     public class ExerciseViewModel
     {
         public string UserUserName { get; set; }

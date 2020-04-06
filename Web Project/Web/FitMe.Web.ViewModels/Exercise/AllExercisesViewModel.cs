@@ -1,10 +1,9 @@
-﻿namespace FitMe.Web.ViewModels.Categories
+﻿namespace FitMe.Web.ViewModels.Exercise
 {
     using System.Collections.Generic;
 
-    using FitMe.Data.Models;
 
-    public class AllExercisesViewMode
+    public class AllExercisesViewModel
     {
         public IEnumerable<ExerciseViewModel> Exercises { get; set; }
 

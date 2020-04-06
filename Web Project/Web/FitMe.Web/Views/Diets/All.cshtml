@@ -19,23 +19,22 @@
         <div class="col-md-9">
             <div class="media-body">
                 <h4 class="media-heading">@item.Title</h4>
-                <ul class="list-inline list-unstyled text-right">
-                    <li class="list-inline-item">
-                        <i class="fas fa-user-edit"></i> @item.UserUserName
-                    </li>
-                    <li class="list-inline-item">
-                        <i class="fas fa-calendar-alt"></i> @item.CreatedOn
-                    </li>
-                    <li class="list-inline-item">
-                        <i class="fas fa-comment-dots"></i> @item.CommentsCount comments
-                    </li>
-                </ul>
-            </div>
-            <div class="blog margin-bottom-40">
-                <div class="button-holder">
-                    <a href="/Diets/Details?dietId=@item.Id" class="btn btn-info text-decoration-none">Info</a>
+                <div class="blog margin-bottom-40">
+                    <div class="button-holder">
+                        <a href="/Diets/Details?dietId=@item.Id" class="btn btn-info text-decoration-none">Info</a>
+                    </div>
+                    <ul class="list-inline list-unstyled text-right">
+                        <li class="list-inline-item">
+                            <i class="fas fa-user-edit"></i> @item.UserUserName
+                        </li>
+                        <li class="list-inline-item">
+                            <i class="fas fa-calendar-alt"></i> @item.CreatedOn
+                        </li>
+                        <li class="list-inline-item">
+                            <i class="fas fa-comment-dots"></i> @item.CommentsCount comments
+                        </li>
+                    </ul>
                 </div>
-
             </div>
         </div>
     </div>
@@ -62,29 +61,28 @@
         }
 
 
-        @*@for (int i = 1; i <= this.Model.PagesCount; i++)
+        @for (int i = 1; i <= this.Model.PagesCount; i++)
+        {
+            var active = i == this.Model.CurrentPage ? "active" : string.Empty;
+            if (i == this.Model.CurrentPage)
             {
-                var a = i;
-                var active = /*i == this.Model.CurrentPage ? "active" :*/ string.Empty;
-                if (i == this.Model.CurrentPage)
-                {
-                    active = "active";
-                }
-                else
-                {
-                    active = string.Empty;
-                }
-                <li class="page-item @active">
-                    <div>
-                        <a class="page-link"
-                           asp-controller="Diets"
-                           asp-action="All"
-                           asp-route-page="@i">
-                            @a
-                        </a>
-                    </div>
-                </li>
-            }*@
+                active = "active";
+            }
+            else
+            {
+                active = string.Empty;
+            }
+            <li class="page-item @active">
+                <div>
+                    <a class="page-link"
+                       asp-controller="Diets"
+                       asp-action="All"
+                       asp-route-page="@i">
+                        @i
+                    </a>
+                </div>
+            </li>
+        }
         @if (this.Model.CurrentPage == this.Model.PagesCount)
         {
             <li class="page-item disabled">
