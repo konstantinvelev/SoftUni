@@ -15,6 +15,7 @@
     public class ExercisesController : BaseController
     {
         private const int ItemsPerPage = 5;
+        private const string NullContent = "Add some descriptions!";
 
         private readonly IExercisesService exercisesService;
         private readonly UserManager<ApplicationUser> userManager;
@@ -159,24 +160,32 @@
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Edit(string dietId)
+        public async Task<IActionResult> Edit(string exerciseId)
         {
-            var exercises = await this.exercisesService.GetExercisesByIdAsync(dietId);
-            //var viewModel = new EditDietViewModel
-            //{
-            //    Title = exercises.Title,
-            //    Content = exercises.Content,
-            //    Gender = exercises.TypeOfGender.ToString(),
-            //};
-            return this.View(/*viewModel*/);
+            var exercise = await this.exercisesService.GetExercisesByIdAsync(exerciseId);
+            if (exercise.Content == null)
+            {
+                exercise.Content = NullContent;
+            }
+
+            var viewModel = new EditExerciseViewModel
+            {
+                Title = exercise.Title,
+                Content = exercise.Content,
+                Gender = exercise.TypeOfGender.ToString(),
+            };
+
+            viewModel.ExerciseId = exerciseId;
+            return this.View(viewModel);
         }
 
-        //[HttpPost]
-        //[Authorize]
-        //public async Task<IActionResult> Update(EditDietInputModel input, string dietId)
-        //{
-        //    await this.exercisesService.Update(dietId, input);
-        //    return this.Redirect("/Diets/YourDiets");
-        //}
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Update(string exerciseId, EditExercisetInputModel input)
+        {
+            input.ExerciseId = exerciseId;
+            await this.exercisesService.Update(input);
+            return this.Redirect("/Exercises/YourExercises");
+        }
     }
 }

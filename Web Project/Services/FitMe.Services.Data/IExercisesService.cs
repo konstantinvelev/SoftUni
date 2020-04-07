@@ -24,6 +24,8 @@
 
          IEnumerable<Exercise> GetExersisesByUser(string userId);
 
+        Task Update(EditExercisetInputModel input);
+
         int GetCount();
     }
 }

@@ -119,5 +119,16 @@
             var count = this.exerciseRepository.All().Count();
             return count;
         }
+
+        public async Task Update(EditExercisetInputModel input)
+        {
+            var exercise = await this.exerciseRepository.GetByIdWithDeletedAsync(input.ExerciseId);
+
+            exercise.Title = input.Title;
+            exercise.Content = input.Content;
+            exercise.Video = new byte[input.Video.Length]; //TODO
+            exercise.TypeOfGender =  input.Gender;
+            await this.exerciseRepository.SaveChangesAsync();
+        }
     }
 }
