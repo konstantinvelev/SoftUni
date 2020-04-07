@@ -4,6 +4,8 @@
 
    public class EditDietInputModel
     {
+        public string DietId { get; set; }
+
         [Required]
         [MinLength(3)]
         [MaxLength(35)]

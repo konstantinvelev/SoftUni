@@ -68,15 +68,12 @@
             return diets;
         }
 
-        public async Task Update(string dietId, EditDietInputModel input)
+        public async Task Update(EditDietInputModel input)
         {
-            var diet = await this.dietsRepository.GetByIdWithDeletedAsync(dietId);
-            diet = new Diet
-            {
-                Title = input.Title,
-                Description = input.Description,
-            };
-            this.dietsRepository.Update(diet);
+            var diet = await this.dietsRepository.GetByIdWithDeletedAsync(input.DietId);
+
+            diet.Title = input.Title;
+            diet.Description = input.Description;
             await this.dietsRepository.SaveChangesAsync();
         }
 

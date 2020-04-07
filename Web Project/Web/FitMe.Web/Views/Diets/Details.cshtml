@@ -22,7 +22,7 @@
     </div>
 }
 
-<h1>@Model.Title</h1>
+
 <div class="container-fluid mt-100">
     <div class="row">
         <div class="col-md-12">
@@ -32,6 +32,7 @@
                         <div class="media-body ml-3">
                             @Model.UserUserName
                             <div class="text-muted small">@Model.CreatedOn</div>
+                            <div><h1>@Model.Title</h1></div>
                         </div>
                         <div class="text-muted small ml-3">
                             <form id="votesForm" method="post"></form>

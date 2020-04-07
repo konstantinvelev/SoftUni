@@ -4,7 +4,7 @@
 
 <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Edit Diet</span></h1>
 <hr class="hr-3" />
-<form class="mx-auto w-50 bg-blur" action="/Diets/Edit" method="GET">
+<form class="mx-auto w-50 bg-blur" action="/Diets/Update?dietId=@Model.DietId" method="post">
     <div class="form-group">
         <div class="text-dark label-holder d-flex justify-content-center">
             <label for="title" class="h4 mb-2">Title</label>
@@ -34,6 +34,5 @@
             </select>
         </div>
     </div>
-
     <button type="submit" class="btn btn-primary">Save</button>
 </form>

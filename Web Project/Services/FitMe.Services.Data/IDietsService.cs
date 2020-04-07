@@ -18,7 +18,7 @@
 
         IEnumerable<Diet> GetDietsByUser(string userId);
 
-        Task Update(string dietId, EditDietInputModel input);
+        Task Update(EditDietInputModel input);
 
         int GetCount();
     }

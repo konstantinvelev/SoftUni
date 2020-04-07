@@ -156,14 +156,16 @@
                 Title = diet.Title,
                 Description = diet.Description,
             };
+            viewModel.DietId = dietId;
             return this.View(viewModel);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(EditDietInputModel input, string dietId)
+        public async Task<IActionResult> Update(string dietId, EditDietInputModel input)
         {
-            await this.dietsService.Update(dietId, input);
+            input.DietId = dietId;
+            await this.dietsService.Update(input);
             return this.Redirect("/Diets/YourDiets");
         }
     }
