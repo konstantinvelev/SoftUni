@@ -7,6 +7,7 @@
 
     using FitMe.Data.Common.Repositories;
     using FitMe.Data.Models;
+    using FitMe.Services.Mapping;
     using FitMe.Web.ViewModels.Exercise;
 
     public class ExercisesService : IExercisesService
@@ -59,6 +60,38 @@
 
             return query.ToList();
 
+        }
+
+        public IEnumerable<T> GetAllForWomens<T>(int? take = null, int skip = 0)
+        {
+            var query = this.exerciseRepository
+                .All()
+                .Where(s => s.TypeOfGender == Gender.Woman)
+                .OrderByDescending(s => s.CreatedOn)
+                .Skip(skip);
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+
+            return query.To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetAllForMans<T>(int? take = null, int skip = 0)
+        {
+            var query = this.exerciseRepository.All()
+                .Where(s=>s.TypeOfGender == Gender.Man)
+                .OrderByDescending(s => s.CreatedOn)
+                .To<T>()
+                .Skip(skip);
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+
+            return query.ToList();
         }
 
         public async Task<Exercise> GetExercisesByIdAsync(string id)

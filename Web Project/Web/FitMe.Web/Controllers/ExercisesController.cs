@@ -35,62 +35,30 @@
 
         public async Task<IActionResult> AllForMans(int? page = 1)
         {
-            var all = this.exercisesService.GetAll(ItemsPerPage, (int)((page - 1) * ItemsPerPage)).Where(s => s.TypeOfGender.ToString() == "Man");
-            var list = new List<ExerciseViewModel>();
-            foreach (var item in all)
-            {
-                var user = this.usersService.GetUserById(item.UserID);
-                var model = new ExerciseViewModel
-                {
-                    Id = item.Id,
-                    Title = item.Title,
-                    Content = item.Content,
-                    CreatedOn = item.CreatedOn,
-                    CommentsCount = item.Commetns.Count,
-                    Gender = item.TypeOfGender.ToString(),
-                    UserUserName = user.UserName,
-                };
-                list.Add(model);
-            }
+            var all = this.exercisesService.GetAllForMans<ExerciseViewModel>(ItemsPerPage, (int)((page - 1) * ItemsPerPage));
 
             var viewModel = new AllExercisesViewModel
             {
-                Exercises = list,
+                Exercises = all,
                 CurrentPage = (int)page,
             };
 
-            var exercises = this.exercisesService.GetAll().Where(s=> s.TypeOfGender.ToString() == "Man");
+            var exercises = this.exercisesService.GetAll().Where(s => s.TypeOfGender == Gender.Man);
             viewModel.PagesCount = (int)Math.Ceiling((double)exercises.Count() / ItemsPerPage);
             return this.View(viewModel);
         }
 
         public async Task<IActionResult> AllForWomans(int? page = 1)
         {
-            var all = this.exercisesService.GetAll(ItemsPerPage, (int)((page - 1) * ItemsPerPage)).Where(s => s.TypeOfGender == 0);
-            var list = new List<ExerciseViewModel>();
-            foreach (var item in all)
-            {
-                var user = this.usersService.GetUserById(item.UserID);
-                var model = new ExerciseViewModel
-                {
-                    Id = item.Id,
-                    Title = item.Title,
-                    Content = item.Content,
-                    CreatedOn = item.CreatedOn,
-                    CommentsCount = item.Commetns.Count,
-                    Gender = item.TypeOfGender.ToString(),
-                    UserUserName = user.UserName,
-                };
-                list.Add(model);
-            }
+            var all = this.exercisesService.GetAllForWomens<ExerciseViewModel>(ItemsPerPage, (int)((page - 1) * ItemsPerPage));
 
             var viewModel = new AllExercisesViewModel
             {
-                Exercises = list,
+                Exercises = all,
                 CurrentPage = (int)page,
             };
 
-            var exercises = this.exercisesService.GetAll().Where(s => s.TypeOfGender == 0);
+            var exercises = this.exercisesService.GetAll().Where(s => s.TypeOfGender == Gender.Woman);
             viewModel.PagesCount = (int)Math.Ceiling((double)exercises.Count() / ItemsPerPage);
             return this.View(viewModel);
         }

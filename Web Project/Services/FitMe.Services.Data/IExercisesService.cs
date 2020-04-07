@@ -10,6 +10,10 @@
     {
          IEnumerable<Exercise> GetAll(int? take = null, int skip = 0);
 
+         IEnumerable<T> GetAllForMans<T>(int? take = null, int skip = 0);
+
+         IEnumerable<T> GetAllForWomens<T>(int? take = null, int skip = 0);
+
          Task CreateWomansExercisesAsync(CreateExercisesInputModel create, string userId);
 
          Task CreateMansExercisesAsync(CreateExercisesInputModel create, string userId);

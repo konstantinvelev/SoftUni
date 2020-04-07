@@ -2,7 +2,10 @@
 {
     using System;
 
-    public class ExerciseViewModel
+    using Data.Models;
+    using FitMe.Services.Mapping;
+
+    public class ExerciseViewModel : IMapFrom<Exercise>
     {
         public string UserUserName { get; set; }
 
