@@ -24,5 +24,9 @@
         public Exercise Exercise { get; set; }
 
         public string ExerciseId { get; set; }
+
+        public Diet Diet { get; set; }
+
+        public string DietId { get; set; }
     }
 }

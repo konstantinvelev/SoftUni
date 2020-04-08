@@ -31,9 +31,15 @@
 
         [HttpGet]
         [Authorize]
-        public IActionResult Create(string postId)
+        public async Task<IActionResult> Create(string postId)
         {
-            return this.View();
+            var user = await this.userManager.GetUserAsync(this.User);
+            var model = new CreateCommentInputModel
+            {
+                UserUserName = user.UserName,
+                PostId = postId,
+            };
+            return this.View(model);
         }
 
         [Authorize]
@@ -42,19 +48,24 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
             input.UserUserName = user.UserName;
+
+            var comment = await this.commentsService.CreateComment(input);
             var diet = await this.dietsService.GetDietByIdAsync(postId);
-            var exercises = await this.exercisesService.GetExercisesByIdAsync(postId);
-            if (diet == null && exercises == null)
+            var exercise = await this.exercisesService.GetExercisesByIdAsync(postId);
+
+            if (diet == null && exercise == null)
             {
                 return this.View(input);
             }
-            else if (exercises == null)
+            else if (exercise == null)
             {
-                return this.RedirectToAction("/Diets/Details?dietId=" + diet.Id);
+                await this.dietsService.AddCommentToDiet(diet, comment);
+                return this.Redirect("/Diets/Details?dietId=" + diet.Id);
             }
             else
             {
-                return this.RedirectToAction("/Exercises/Details?exerciseId=" + exercises.Id);
+                await this.exercisesService.AddCommenToExercise(exercise, comment);
+                return this.Redirect("/Exercises/Details?exerciseId=" + exercise.Id);
             }
         }
     }

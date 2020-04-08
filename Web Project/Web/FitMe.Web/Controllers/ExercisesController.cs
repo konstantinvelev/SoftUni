@@ -183,6 +183,10 @@
         [Authorize]
         public async Task<IActionResult> Update(string exerciseId, EditExercisetInputModel input)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
             input.ExerciseId = exerciseId;
             await this.exercisesService.Update(input);
             return this.Redirect("/Exercises/YourExercises");

@@ -37,7 +37,7 @@
         public IEnumerable<Diet> GetAll(int? take = null, int skip = 0)
         {
             var query = this.dietsRepository.All()
-                .OrderByDescending(s=> s.CreatedOn)
+                .OrderByDescending(s => s.CreatedOn)
                 .Skip(skip);
 
             if (take.HasValue)
@@ -82,6 +82,13 @@
             var count = this.dietsRepository.All().Count();
 
             return count;
+        }
+
+        public async Task AddCommentToDiet(Diet diet, Comment comment)
+        {
+            diet.Comments.Add(comment);
+
+            await this.dietsRepository.SaveChangesAsync();
         }
     }
 }

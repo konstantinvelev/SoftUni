@@ -6,28 +6,26 @@
 
 <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Comment</span></h1>
 <hr class="hr-3" />
-<form class="mx-auto w-50 bg-blur" action="/Comments/Create" method="POST">
+<form class="mx-auto w-50 bg-blur" action="/Comments/Create?postId=@Model.PostId" method="post">
     <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         tinymce.init({
             selector: "textarea",
             plugins: [
                 "image paste table link code media"
             ]
         });
-    </script>
+    </script>*@
 
-    <form method="post" asp-action="Create">  
+    <form method="post" asp-action="Create">
         <div>
             <label asp-for="Content"></label>
             <textarea asp-for="Content" class="form-control"></textarea>
             <span asp-validation-for="Content" class="text-danger"></span>
         </div>
-
-        </div>
-        <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-secondary text-white mb-3">Add Comments</button>
-        </div>
+        <form asp-controller="Comments" asp-action="Create" method="post">
+            <button type="submit" class="btn btn-primary text-center">Add Comment</button>
+        </form>
     </form>
 </form>
 

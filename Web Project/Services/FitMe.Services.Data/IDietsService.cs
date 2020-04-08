@@ -21,5 +21,7 @@
         Task Update(EditDietInputModel input);
 
         int GetCount();
+
+        Task AddCommentToDiet(Diet diet, Comment comment);
     }
 }

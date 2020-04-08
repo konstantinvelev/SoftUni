@@ -127,7 +127,14 @@
             exercise.Title = input.Title;
             exercise.Content = input.Content;
             exercise.Video = new byte[input.Video.Length]; //TODO
-            exercise.TypeOfGender =  input.Gender;
+            exercise.TypeOfGender = input.Gender;
+            await this.exerciseRepository.SaveChangesAsync();
+        }
+
+        public async Task AddCommenToExercise(Exercise exercise, Comment comment)
+        {
+            exercise.Commetns.Add(comment);
+
             await this.exerciseRepository.SaveChangesAsync();
         }
     }
