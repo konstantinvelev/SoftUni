@@ -15,5 +15,7 @@
         Task<Comment> CreateComment(CreateCommentInputModel input);
 
         Task Delete(string commentId);
+
+        Comment GetById(string id);
     }
 }

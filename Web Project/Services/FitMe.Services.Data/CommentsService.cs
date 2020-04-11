@@ -48,5 +48,11 @@
             this.commentsRepository.Delete(comment);
             await this.commentsRepository.SaveChangesAsync();
         }
+
+        public Comment GetById(string id)
+        {
+            var comment = this.commentsRepository.All().FirstOrDefault(s => s.Id == id);
+            return comment;
+        }
     }
 }

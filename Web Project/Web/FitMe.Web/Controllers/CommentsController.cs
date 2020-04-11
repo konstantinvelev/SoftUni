@@ -74,21 +74,25 @@
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Delete(string commentId, string postId)
+        public async Task<IActionResult> Delete(string commentId)
         {
-            var diet = await this.dietsService.GetDietByIdAsync(postId);
-            var exercise = await this.exercisesService.GetExercisesByIdAsync(postId);
-            if (exercise == null)
+            var comment = this.commentsService.GetById(commentId);
+            if (comment.DietId != null)
             {
+                var diet = await this.dietsService.GetDietByIdAsync(comment.DietId);
                 await this.commentsService.Delete(commentId);
-              //  return this.Redirect("/Diets/Details?dietId=" + diet.Id);
+                return this.Redirect("/Diets/Details?dietId=" + diet.Id);
+            }
+            else if (comment.ExerciseId != null)
+            {
+                var exercise = await this.exercisesService.GetExercisesByIdAsync(comment.ExerciseId);
+                await this.commentsService.Delete(commentId);
+                return this.Redirect("/Exercises/Details?exerciseId=" + exercise.Id);
             }
             else
             {
-                await this.commentsService.Delete(commentId);
-             //   return this.Redirect("/Exercises/Details?exerciseId=" + exercise.Id);
+                return this.Redirect("/");
             }
-            return this.Redirect("/");
         }
     }
 }
