@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
 
-    using FitMe.Data.Models;
+    using FitMe.Web.ViewModels.Comments;
 
-   public class ExerciseDetailViewModel
+    public class ExerciseDetailViewModel
     {
         public string Id { get; set; }
 
@@ -22,6 +22,6 @@
 
         public int VotesCount { get; set; }
 
-        public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<CommentViewModel> Comments { get; set; }
     }
 }

@@ -49,7 +49,6 @@
             var user = await this.userManager.GetUserAsync(this.User);
             input.UserUserName = user.UserName;
 
-            var comment = await this.commentsService.CreateComment(input);
             var diet = await this.dietsService.GetDietByIdAsync(postId);
             var exercise = await this.exercisesService.GetExercisesByIdAsync(postId);
 
@@ -59,14 +58,37 @@
             }
             else if (exercise == null)
             {
+                input.PostId = diet.Id;
+                var comment = await this.commentsService.CreateComment(input);
                 await this.dietsService.AddCommentToDiet(diet, comment);
                 return this.Redirect("/Diets/Details?dietId=" + diet.Id);
             }
             else
             {
+                input.PostId = exercise.Id;
+                var comment = await this.commentsService.CreateComment(input);
                 await this.exercisesService.AddCommenToExercise(exercise, comment);
                 return this.Redirect("/Exercises/Details?exerciseId=" + exercise.Id);
             }
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Delete(string commentId, string postId)
+        {
+            var diet = await this.dietsService.GetDietByIdAsync(postId);
+            var exercise = await this.exercisesService.GetExercisesByIdAsync(postId);
+            if (exercise == null)
+            {
+                await this.commentsService.Delete(commentId);
+              //  return this.Redirect("/Diets/Details?dietId=" + diet.Id);
+            }
+            else
+            {
+                await this.commentsService.Delete(commentId);
+             //   return this.Redirect("/Exercises/Details?exerciseId=" + exercise.Id);
+            }
+            return this.Redirect("/");
         }
     }
 }

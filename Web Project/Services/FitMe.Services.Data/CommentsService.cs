@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using FitMe.Data.Common.Repositories;
     using FitMe.Data.Models;
+    using FitMe.Services.Mapping;
     using FitMe.Web.ViewModels.Comments;
 
     public class CommentsService : ICommentsService
@@ -22,16 +23,30 @@
             return comments;
         }
 
+        public IEnumerable<T> All<T>()
+        {
+            var comments = this.commentsRepository.All().To<T>().ToList();
+            return comments;
+        }
+
         public async Task<Comment> CreateComment(CreateCommentInputModel input)
         {
             var comment = new Comment
             {
                 Content = input.Content,
+                PostId = input.PostId,
             };
 
             await this.commentsRepository.AddAsync(comment);
             await this.commentsRepository.SaveChangesAsync();
             return comment;
+        }
+
+        public async Task Delete(string commentId)
+        {
+            var comment = await this.commentsRepository.GetByIdWithDeletedAsync(commentId);
+            this.commentsRepository.Delete(comment);
+            await this.commentsRepository.SaveChangesAsync();
         }
     }
 }

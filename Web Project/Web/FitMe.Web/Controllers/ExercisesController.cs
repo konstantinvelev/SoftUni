@@ -7,6 +7,7 @@
 
     using FitMe.Data.Models;
     using FitMe.Services.Data;
+    using FitMe.Web.ViewModels.Comments;
     using FitMe.Web.ViewModels.Exercise;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -100,7 +101,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
             var exercise = await this.exercisesService.GetExercisesByIdAsync(exerciseId);
 
-            var comments = this.commentsService.All();
+            var comments = this.commentsService.All<CommentViewModel>().Where(s => s.PostId == exercise.Id);
 
             var viewModel = new ExerciseDetailViewModel
             {

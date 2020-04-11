@@ -102,8 +102,8 @@
 
         public async Task DeleteExercisesAsync(string id)
         {
-            var diet = await this.exerciseRepository.GetByIdWithDeletedAsync(id);
-            this.exerciseRepository.Delete(diet);
+            var exercise = await this.exerciseRepository.GetByIdWithDeletedAsync(id);
+            this.exerciseRepository.Delete(exercise);
             await this.exerciseRepository.SaveChangesAsync();
         }
 

@@ -21,6 +21,8 @@
         [MaxLength(int.MaxValue)]
         public string Content { get; set; }
 
+        public string PostId { get; set; }
+
         public Exercise Exercise { get; set; }
 
         public string ExerciseId { get; set; }

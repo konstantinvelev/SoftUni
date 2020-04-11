@@ -1,12 +1,13 @@
-﻿using FitMe.Data.Models;
-using FitMe.Web.ViewModels.Comments;
-using System.Collections.Generic;
-
-namespace FitMe.Web.ViewModels.Diets
+﻿namespace FitMe.Web.ViewModels.Comments
 {
-   public class DietsDetailViewModel
+    using FitMe.Data.Models;
+    using FitMe.Services.Mapping;
+
+   public class CommentViewModel : IMapFrom<Comment>
     {
         public string Id { get; set; }
+
+        public string PostId { get; set; }
 
         public string Title { get; set; }
 
@@ -17,7 +18,5 @@ namespace FitMe.Web.ViewModels.Diets
         public string CreatedOn { get; set; }
 
         public int VotesCount { get; set; }
-
-        public IEnumerable<CommentViewModel> Comments { get; set; }
     }
 }

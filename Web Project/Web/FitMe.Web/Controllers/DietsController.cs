@@ -8,6 +8,7 @@
     using FitMe.Data.Models;
     using FitMe.Services.Data;
     using FitMe.Services.Mapping;
+    using FitMe.Web.ViewModels.Comments;
     using FitMe.Web.ViewModels.Diets;
     using FitMe.Web.ViewModels.Exercise;
     using Microsoft.AspNetCore.Authorization;
@@ -21,15 +22,18 @@
         private readonly IDietsService dietsService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUsersService usersService;
+        private readonly ICommentsService commentsService;
 
         public DietsController(
             IDietsService dietsService,
             UserManager<ApplicationUser> userManager,
-            IUsersService usersService)
+            IUsersService usersService,
+            ICommentsService commentsService)
         {
             this.dietsService = dietsService;
             this.userManager = userManager;
             this.usersService = usersService;
+            this.commentsService = commentsService;
         }
 
         public async Task<IActionResult> All(int? page = 1)
@@ -93,6 +97,7 @@
 
             var user = await this.userManager.GetUserAsync(this.User);
             var diet = await this.dietsService.GetDietByIdAsync(dietId);
+            var comment = this.commentsService.All<CommentViewModel>().Where(s=>s.PostId == diet.Id);
 
             var viewModel = new DietsDetailViewModel()
             {
@@ -102,6 +107,7 @@
                 CreatedOn = diet.CreatedOn.ToString(),
                 UserUserName = user.UserName,
                 VotesCount = diet.Votes.Count,
+                Comments = comment,
             };
 
             if (viewModel == null)

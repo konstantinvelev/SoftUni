@@ -10,6 +10,10 @@
     {
         IEnumerable<Comment> All();
 
+        IEnumerable<T> All<T>();
+
         Task<Comment> CreateComment(CreateCommentInputModel input);
+
+        Task Delete(string commentId);
     }
 }

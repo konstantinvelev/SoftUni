@@ -67,6 +67,41 @@
                         </div>
                     </div>
                 </div>
+                @foreach (var item in Model.Comments)
+                {
+                    <div class="card-header">
+                        <div class="card-header">
+                            <div class="media flex-wrap w-100 align-items-center">
+                                <div class="media-body ml-3">
+                                    @Model.UserUserName
+                                    <div class="text-muted small">@item.CreatedOn</div>
+                                </div>
+                                <div class="text-muted small ml-3">
+                                    <form id="votesForm" method="post"></form>
+                                    <div>
+                                        <a href="#" onclick="sendVote(@item.Id, true)">
+                                            <i class="fa fa-thumbs-up"></i>
+                                        </a>
+                                    </div>
+                                    <div id="votesCount">@item.VotesCount</div>
+                                    <div>
+                                        <a href="#" onclick="sendVote(@item.Id, false)">
+                                            <i class="fa fa-thumbs-down"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header">
+                            <div class="media flex-wrap w-100 align-items-center">
+                                @item.Description
+                            </div>
+                        </div>
+                        <div class="button-holder">
+                            <a href="/Comments/Delete?commentId=@item.Id" class="btn btn-info text-decoration-none">Delete</a>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
