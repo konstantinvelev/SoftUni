@@ -8,7 +8,7 @@
     {
         [Required]
         [MinLength(3)]
-        [MaxLength(35)]
+        [MaxLength(50)]
         public string Title { get; set; }
 
         [Required]
