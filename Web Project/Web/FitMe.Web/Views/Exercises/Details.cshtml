@@ -50,15 +50,14 @@
                     </div>
                 </div>
                 <div class="card-header">
+                    <iframe src="https://www.youtube.com/embed/@Model.Video" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                </div>
+                <div class="card-header">
                     <div class="media flex-wrap w-100 align-items-center">
                         @Model.Content
                     </div>
                 </div>
-                <div class="card-header">
-                    <div class="media flex-wrap w-100 align-items-center">
-                        @Model.Video
-                    </div>
-                </div>
+
                 <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
                     <div class="px-4 pt-3">
                         <i class="fa fa-heart text-danger"></i>&nbsp; <span class="align-middle">0</span> <span class="text-muted d-inline-flex align-items-center align-middle ml-4">
@@ -98,12 +97,15 @@
                         </div>
                         <div class="card-header">
                             <div class="media flex-wrap w-100 align-items-center">
-                                @item.Description
+                                @item.Content
                             </div>
                         </div>
-                        <div class="button-holder">
-                            <a href="/Comments/Delete?commentId=@item.Id" class="btn btn-info text-decoration-none">Delete</a>
-                        </div>
+                        @if (item.UserId == Model.UserUserId)
+                        {
+                            <div class="button-holder">
+                                <a href="/Comments/Delete?commentId=@item.Id" class="btn btn-info text-decoration-none">Delete</a>
+                            </div>
+                        }
                     </div>
                 }
             </div>

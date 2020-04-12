@@ -12,20 +12,18 @@
     <div class="row blog-page">
         <div class="col-md-9">
 
-            <p>
+            <h1>
                 @item.Title
-            </p>
+            </h1>
             <div class="blog margin-bottom-40">
 
                 <div class="blog-img">
                     <div class="responsive-video">
-                        <iframe src="https://www.youtube.com/embed/dluB5VE1m1k" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                        <iframe src="https://www.youtube.com/embed/@item.Video" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
                     </div>
                 </div>
-                <div>
-                    @item.Content
-                </div>
-                <div class="button-holder">
+
+                <div class="button-holder d-flex justify-content-between">
                     <a href="/Exercises/Details?exerciseId=@item.Id" class="btn btn-info text-decoration-none">Info</a>
                     <div class="button-holder">
                         <a href="/Exercises/Edit?exerciseId=@item.Id" class="btn btn-info text-decoration-none">Edit</a>

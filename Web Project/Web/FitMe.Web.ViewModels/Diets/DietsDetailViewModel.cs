@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FitMe.Web.ViewModels.Diets
 {
-   public class DietsDetailViewModel
+    public class DietsDetailViewModel
     {
         public string Id { get; set; }
 
@@ -17,6 +17,8 @@ namespace FitMe.Web.ViewModels.Diets
         public string CreatedOn { get; set; }
 
         public int VotesCount { get; set; }
+
+        public string UserUserId { get; set; }
 
         public IEnumerable<CommentViewModel> Comments { get; set; }
     }

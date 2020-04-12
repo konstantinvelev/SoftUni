@@ -19,6 +19,8 @@
 
         public string Gender { get; set; }
 
+        public string Video { get; set; }
+
         public string Content { get; set; }
     }
 }

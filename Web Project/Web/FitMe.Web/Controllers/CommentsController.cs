@@ -48,6 +48,7 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
             input.UserUserName = user.UserName;
+            input.UserId = user.Id;
 
             var diet = await this.dietsService.GetDietByIdAsync(postId);
             var exercise = await this.exercisesService.GetExercisesByIdAsync(postId);

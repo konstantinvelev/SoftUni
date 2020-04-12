@@ -10,6 +10,8 @@
     {
         IEnumerable<Comment> All();
 
+        Task DeleteComments(ICollection<Comment> all);
+
         IEnumerable<T> All<T>();
 
         Task<Comment> CreateComment(CreateCommentInputModel input);

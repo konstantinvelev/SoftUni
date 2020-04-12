@@ -81,8 +81,11 @@
                 return this.View(input);
             }
 
+            var url = input.Video.Split("watch?v=");
+            input.Video = url[1];
+
             var user = await this.userManager.GetUserAsync(this.User);
-            if (input.Gender.ToString() == "Male")
+            if (input.Gender.ToString() == "Man")
             {
                 await this.exercisesService.CreateMansExercisesAsync(input, user.Id);
                 return this.Redirect("/Exercises/AllForMans");
@@ -111,9 +114,10 @@
                 Gender = exercise.TypeOfGender.ToString(),
                 CreatedOn = exercise.CreatedOn.ToString(),
                 UserUserName = user.UserName,
+                UserUserId = user.Id,
                 Video = exercise.Video,
                 VotesCount = exercise.Votes.Count(),
-                Comments = comments,
+                Comments = comments.OrderBy(s => s.CreatedOn),
             };
 
             if (viewModel == null)
@@ -133,8 +137,10 @@
 
             if (exercise.UserID == user.Id)
             {
+                await this.commentsService.DeleteComments(exercise.Commetns);
                 await this.exercisesService.DeleteExercisesAsync(exerciseId);
-                return this.Redirect("/");
+
+                return this.Redirect("/Exercises/YourExercises");
             }
 
             return this.View("/Exercises/Details");
@@ -174,6 +180,7 @@
                 Title = exercise.Title,
                 Content = exercise.Content,
                 Gender = exercise.TypeOfGender.ToString(),
+                Video = exercise.Video,
             };
 
             viewModel.ExerciseId = exerciseId;
@@ -188,6 +195,9 @@
             {
                 return this.BadRequest();
             }
+
+            var url = input.Video.Split("watch?v=");
+            input.Video = url[1];
             input.ExerciseId = exerciseId;
             await this.exercisesService.Update(input);
             return this.Redirect("/Exercises/YourExercises");

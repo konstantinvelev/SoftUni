@@ -97,7 +97,8 @@
 
             var user = await this.userManager.GetUserAsync(this.User);
             var diet = await this.dietsService.GetDietByIdAsync(dietId);
-            var comment = this.commentsService.All<CommentViewModel>().Where(s=>s.PostId == diet.Id);
+            var comment = this.commentsService.All<CommentViewModel>().Where(s => s.PostId == diet.Id);
+
 
             var viewModel = new DietsDetailViewModel()
             {
@@ -108,6 +109,7 @@
                 UserUserName = user.UserName,
                 VotesCount = diet.Votes.Count,
                 Comments = comment,
+                UserUserId = user.Id,
             };
 
             if (viewModel == null)
@@ -126,6 +128,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
             if (diet.UserId == user.Id)
             {
+                await this.commentsService.DeleteComments(diet.Comments);
                 await this.dietsService.DeleteDietAsync(dietId);
                 return this.Redirect("/");
             }

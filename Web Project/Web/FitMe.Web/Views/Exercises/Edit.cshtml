@@ -16,12 +16,12 @@
     <input type="text" class="form-control" id="title" name="title" value="@Model.Title"></input>
     <div class="form-group">
         <div class="text-dark label-holder d-flex justify-content-center">
-            <label for="description" class="h4 mb-2">Description</label>
+            <label for="content" class="h4 mb-2">Content</label>
         </div>
         <div>
-            <h5>New description:</h5>
+            <h5>New content:</h5>
         </div>
-        <input type="text" class="form-control" id="description" name="description" value="@Model.Content"></input>
+        <input type="text" class="form-control" id="content" name="content" value="@Model.Content"></input>
     </div>
     <div class="form-group">
         <div class="text-dark label-holder d-flex justify-content-center">
@@ -38,10 +38,13 @@
         </div>
         <div class="text-dark label-holder d-flex justify-content-center">
             <select styleClass="browser-default custom-select" id="gender" name="gender">
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
+                <option value="Man">Male</option>
+                <option value="Woman">Female</option>
             </select>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
+    <div class="button-holder">
+        <a href="/Exercises/Update?exerciseId=@Model.ExerciseId" class="btn btn-info text-decoration-none">edit Exercise</a>
+    </div>
 </form>

@@ -81,7 +81,7 @@
         public IEnumerable<T> GetAllForMans<T>(int? take = null, int skip = 0)
         {
             var query = this.exerciseRepository.All()
-                .Where(s=>s.TypeOfGender == Gender.Man)
+                .Where(s => s.TypeOfGender == Gender.Man)
                 .OrderByDescending(s => s.CreatedOn)
                 .To<T>()
                 .Skip(skip);
@@ -126,8 +126,8 @@
 
             exercise.Title = input.Title;
             exercise.Content = input.Content;
-            exercise.Video = new byte[input.Video.Length]; //TODO
-            exercise.TypeOfGender = input.Gender;
+            exercise.Video = input.Video;
+            exercise.TypeOfGender = Enum.Parse<Gender>(input.Gender);
             await this.exerciseRepository.SaveChangesAsync();
         }
 

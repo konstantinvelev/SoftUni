@@ -19,7 +19,7 @@
         public string Gender { get; set; }
 
         [Required]
-        public byte[] Video { get; set; }
+        public string Video { get; set; }
 
         public string UserID { get; set; }
     }

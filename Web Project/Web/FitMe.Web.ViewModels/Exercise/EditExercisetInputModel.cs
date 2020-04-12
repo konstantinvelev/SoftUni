@@ -9,15 +9,13 @@ namespace FitMe.Web.ViewModels.Exercise
 
         [Required]
         [MinLength(3)]
-        [MaxLength(35)]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(35)]
         public string Content { get; set; }
 
         [Required]
-        public Gender Gender { get; set; }
+        public string Gender { get; set; }
 
         public string Video { get; set; }
     }

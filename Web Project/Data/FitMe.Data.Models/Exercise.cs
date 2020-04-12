@@ -27,7 +27,7 @@
         [Required]
         public Gender TypeOfGender { get; set; }
 
-        public byte[] Video { get; set; }
+        public string Video { get; set; }
 
         [Required]
         public string UserID { get; set; }

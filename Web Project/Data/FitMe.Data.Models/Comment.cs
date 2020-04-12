@@ -12,10 +12,8 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
-        public ApplicationUser User { get; set; }
-
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         [Required]
         [MaxLength(int.MaxValue)]

@@ -94,12 +94,15 @@
                         </div>
                         <div class="card-header">
                             <div class="media flex-wrap w-100 align-items-center">
-                                @item.Description
+                                @item.Content
                             </div>
                         </div>
-                        <div class="button-holder">
-                            <a href="/Comments/Delete?commentId=@item.Id" class="btn btn-info text-decoration-none">Delete</a>
-                        </div>
+                        @if (item.UserId == Model.UserUserId)
+                        {
+                            <div class="button-holder">
+                                <a href="/Comments/Delete?commentId=@item.Id" class="btn btn-info text-decoration-none">Delete</a>
+                            </div>
+                        }
                     </div>
                 }
             </div>

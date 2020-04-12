@@ -35,6 +35,7 @@
             {
                 Content = input.Content,
                 PostId = input.PostId,
+                UserId = input.UserId,
             };
 
             await this.commentsRepository.AddAsync(comment);
@@ -46,6 +47,16 @@
         {
             var comment = await this.commentsRepository.GetByIdWithDeletedAsync(commentId);
             this.commentsRepository.Delete(comment);
+            await this.commentsRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteComments(ICollection<Comment> all)
+        {
+            foreach (var item in all)
+            {
+                this.commentsRepository.Delete(item);
+            }
+
             await this.commentsRepository.SaveChangesAsync();
         }
 

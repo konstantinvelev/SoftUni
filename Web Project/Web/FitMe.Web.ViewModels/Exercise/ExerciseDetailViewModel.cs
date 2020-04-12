@@ -16,9 +16,11 @@
 
         public string UserUserName { get; set; }
 
+        public string UserUserId { get; set; }
+
         public string CreatedOn { get; set; }
 
-        public byte[] Video { get; set; }
+        public string Video { get; set; }
 
         public int VotesCount { get; set; }
 
