@@ -80,9 +80,9 @@
             {
                 return this.View(input);
             }
-
             var url = input.Video.Split("watch?v=");
             input.Video = url[1];
+
 
             var user = await this.userManager.GetUserAsync(this.User);
             if (input.Gender.ToString() == "Man")
@@ -193,12 +193,13 @@
         {
             if (!ModelState.IsValid)
             {
-                return this.BadRequest();
+                return this.View(input);
             }
-
             var url = input.Video.Split("watch?v=");
             input.Video = url[1];
             input.ExerciseId = exerciseId;
+
+
             await this.exercisesService.Update(input);
             return this.Redirect("/Exercises/YourExercises");
         }

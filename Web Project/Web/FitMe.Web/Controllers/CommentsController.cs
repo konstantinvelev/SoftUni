@@ -46,6 +46,11 @@
         [HttpPost]
         public async Task<IActionResult> Create(string postId, CreateCommentInputModel input)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
             input.UserUserName = user.UserName;
             input.UserId = user.Id;

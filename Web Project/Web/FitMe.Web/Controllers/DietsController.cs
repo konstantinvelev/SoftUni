@@ -77,11 +77,12 @@
         [Authorize]
         public async Task<IActionResult> Create(CreateDietInputModel input)
         {
-            var diet = AutoMapperConfig.MapperInstance.Map<Diet>(input);
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
+
+            var diet = AutoMapperConfig.MapperInstance.Map<Diet>(input);
 
             var user = await this.userManager.GetUserAsync(this.User);
 
@@ -173,7 +174,13 @@
         [Authorize]
         public async Task<IActionResult> Update(string dietId, EditDietInputModel input)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
             input.DietId = dietId;
+
             await this.dietsService.Update(input);
             return this.Redirect("/Diets/YourDiets");
         }

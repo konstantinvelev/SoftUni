@@ -11,8 +11,6 @@
 
         public DateTime CreatedOn { get; set; }
 
-        public int CommentsCount { get; set; }
-
         public string Id { get; set; }
 
         public string Title { get; set; }

@@ -1,17 +1,19 @@
-﻿using FitMe.Data.Models;
-using System.ComponentModel.DataAnnotations;
-
-namespace FitMe.Web.ViewModels.Exercise
+﻿namespace FitMe.Web.ViewModels.Exercise
 {
+    using System.ComponentModel.DataAnnotations;
+
+    using FitMe.Data.Models;
+
     public class EditExercisetInputModel
     {
         public string ExerciseId { get; set; }
 
-        [Required]
-        [MinLength(3)]
+        [Required(ErrorMessage = "Title must be not null")]
+        [StringLength(int.MaxValue, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Content must be not null")]
+        [StringLength(int.MaxValue, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
         public string Content { get; set; }
 
         [Required]

@@ -2,17 +2,16 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-   public class EditDietInputModel
+    public class EditDietInputModel
     {
         public string DietId { get; set; }
 
-        [Required]
-        [MinLength(3)]
-        [MaxLength(35)]
+        [Required(ErrorMessage = "Title must be not null")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
         public string Title { get; set; }
 
-        [Required]
-        [MaxLength(35)]
+        [Required(ErrorMessage = "Description must be not null")]
+        [StringLength(int.MaxValue, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
         public string Description { get; set; }
 
         [Required]
