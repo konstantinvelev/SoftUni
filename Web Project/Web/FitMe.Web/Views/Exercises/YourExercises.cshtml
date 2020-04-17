@@ -3,7 +3,7 @@
 }
 
 <form asp-controller="Exercises" asp-action="Create" method="get">
-    <button type="submit" class="btn btn-primary">Add Exercises</button>
+    <button type="submit" class="btn btn-success">Add Exercises</button>
 </form>
 
 
@@ -12,24 +12,24 @@
     <div class="row blog-page">
         <div class="col-md-9">
 
-            <h1>
+            <h1 class="text-white">
                 @item.Title
             </h1>
             <div class="blog margin-bottom-40">
 
                 <div class="blog-img">
-                    <div class="responsive-video">
+                    <div class="responsive-video text-white">
                         <iframe src="https://www.youtube.com/embed/@item.Video" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
                     </div>
                 </div>
 
-                <div class="button-holder d-flex justify-content-between">
-                    <a href="/Exercises/Details?exerciseId=@item.Id" class="btn btn-info text-decoration-none">Info</a>
-                    <div class="button-holder">
-                        <a href="/Exercises/Edit?exerciseId=@item.Id" class="btn btn-info text-decoration-none">Edit</a>
+                <div class="button-holder d-flex justify-content-between text-white">
+                    <a href="/Exercises/Details?exerciseId=@item.Id" class="btn btn-success text-decoration-none">Details</a>
+                    <div class="button-holder text-white">
+                        <a href="/Exercises/Edit?exerciseId=@item.Id" class="btn btn-danger text-decoration-none">Edit Post</a>
                     </div>
-                    <div class="button-holder">
-                        <a href="/Exercises/Delete?exerciseId=@item.Id" class="btn btn-info text-decoration-none">Delete Exercise</a>
+                    <div class="button-holder text-white">
+                        <a href="/Exercises/Delete?exerciseId=@item.Id" class="btn btn-danger text-decoration-none">Delete Exercise</a>
                     </div>
 
                 </div>

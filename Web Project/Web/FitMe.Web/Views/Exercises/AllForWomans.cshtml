@@ -6,7 +6,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 
-
+<form asp-controller="Exercises" asp-action="Create" method="get">
+    <button type="submit" class="btn btn-primary">Add Exercises</button>
+</form>
 
 @foreach (var item in Model.Exercises)
 {
@@ -16,24 +18,24 @@
             <div class="row blog-page">
                 <div class="col-md-9">
                     <div class="media-body">
-                        <h4 class="media-heading">@item.Title</h4>
+                        <h4 class="media-heading text-white">@item.Title</h4>
                     </div>
                     <div class="blog margin-bottom-40">
-                        <div class="blog-img">
+                        <div class="blog-img text-white">
                             <div class="responsive-video">
                                 <iframe src="https://www.youtube.com/embed/@item.Video" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
                             </div>
                         </div>
                         <div class="button-holder">
-                            <a href="/Exercises/Details?exerciseId=@item.Id" class="btn btn-info text-decoration-none">Info</a>
+                            <a href="/Exercises/Details?exerciseId=@item.Id" class="btn btn-success text-decoration-none">Details</a>
                         </div>
                         <div class="media-body">
                             <ul class="list-inline list-unstyled text-right">
                                 <li class="list-inline-item">
-                                    <i class="fas fa-user-edit"></i> @item.UserUserName
+                                    <i class="fas fa-user-edit"></i><div class="text-white">@item.UserUserName</div>>
                                 </li>
                                 <li class="list-inline-item">
-                                    <i class="fas fa-calendar-alt"></i> @item.CreatedOn
+                                    <i class="fas fa-calendar-alt"></i> <div class="text-white">@item.CreatedOn</div>>
                                 </li>
                             </ul>
                         </div>

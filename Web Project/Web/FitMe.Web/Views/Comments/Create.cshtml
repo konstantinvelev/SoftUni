@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Comment</span></h1>
+<h1 class="text-center text-white mt-2"><span class="badge badge-pill badge-dark">Add Comment</span></h1>
 <hr class="hr-3" />
 <form class="mx-auto w-50 bg-blur" action="/Comments/Create?postId=@Model.PostId" method="post">
     <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
@@ -19,13 +19,15 @@
 
     <form method="post" asp-action="Create">
         <div>
-            <label asp-for="Content"></label>
+            <label class="text-white" asp-for="Content"></label>
             <textarea asp-for="Content" class="form-control"></textarea>
             <span asp-validation-for="Content" class="text-danger"></span>
         </div>
-        <form asp-controller="Comments" asp-action="Create" method="post">
-            <button type="submit" class="btn btn-primary text-center">Add Comment</button>
-        </form>
+        <div class="margins">
+            <form asp-controller="Comments" asp-action="Create" method="post">
+                <button type="submit" class="btn btn-success text-center">Add Comment</button>
+            </form>
+        </div>
     </form>
 </form>
 

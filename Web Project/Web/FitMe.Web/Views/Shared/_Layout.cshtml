@@ -3,9 +3,11 @@
 <html>
 <head>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3 layoutcolor">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
+                <span style="color:orangered">
+                    <a class="navbar-brand " asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
+                </span>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -19,7 +21,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Gender</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Exercises</a>
                             </li>
                         }
                         else
@@ -28,7 +30,10 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Gender</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Exercises</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Diets" asp-action="All">Diets</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Exercises" asp-action="YourExercises">Your Exercises</a>
@@ -64,7 +69,7 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div> &copy; @DateTime.Now.Year - @GlobalConstants.SystemName Privacy</div>
     </div>
 </footer>
 <body>

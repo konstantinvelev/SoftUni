@@ -23,7 +23,7 @@
 }
 
 
-<div class="container-fluid mt-100">
+<div class="container-fluid mt-100 mydetails">
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="px-4 pt-3">
                         <div class="button-holder">
-                            <a href="/Comments/Create?postId=@Model.Id" class="btn btn-info text-decoration-none">Reply</a>
+                            <a href="/Comments/Create?postId=@Model.Id" class="btn btn-success text-decoration-none">Reply</a>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                         @if (item.UserId == Model.UserUserId)
                         {
                             <div class="button-holder">
-                                <a href="/Comments/Delete?commentId=@item.Id" class="btn btn-info text-decoration-none">Delete</a>
+                                <a href="/Comments/Delete?commentId=@item.Id" class="btn btn-danger text-decoration-none">Delete</a>
                             </div>
                         }
                     </div>

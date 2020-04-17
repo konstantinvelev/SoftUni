@@ -9,7 +9,7 @@
 
 
 <form asp-controller="Diets" asp-action="Create" method="get">
-    <button type="submit" class="btn btn-primary">Add Diet</button>
+    <button type="submit" class="btn btn-success">Add Diet</button>
 </form>
 
 
@@ -18,17 +18,17 @@
     <div class="row blog-page">
         <div class="col-md-9">
             <div class="media-body">
-                <h2 class="media-heading">@item.Title</h2>
+                <h2 class="media-heading text-white">@item.Title</h2>
                 <div class="blog margin-bottom-40">
                     <div class="button-holder">
-                        <a href="/Diets/Details?dietId=@item.Id" class="btn btn-info text-decoration-none">Info</a>
+                        <a href="/Diets/Details?dietId=@item.Id" class="btn btn-success text-decoration-none">Details</a>
                     </div>
                     <ul class="list-inline list-unstyled text-right">
                         <li class="list-inline-item">
-                            <i class="fas fa-user-edit"></i> @item.UserUserName
+                            <i class="fas fa-user-edit text-white"></i><div class="text-white">@item.UserUserName</div>> 
                         </li>
                         <li class="list-inline-item">
-                            <i class="fas fa-calendar-alt"></i> @item.CreatedOn
+                            <i class="fas fa-calendar-alt text-white"></i> <div class="text-white">@item.CreatedOn</div>>
                         </li>
                     </ul>
                 </div>

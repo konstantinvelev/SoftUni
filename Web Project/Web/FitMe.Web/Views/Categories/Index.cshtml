@@ -7,11 +7,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 
 
-
-<form asp-controller="Categories" asp-action="Mans" method="get">
-    <button class="btn"><i class="fa fa-male fa-10x"></i></button>
-</form>
-
-<form asp-controller="Categories" asp-action="Womans" method="get">
-    <button class="btn"><i class="fa fa-female fa-10x"></i></button>
-</form>
+<div class="row">
+    <div class="col-md-7">
+        <form asp-controller="Exercises" asp-action="AllForMans" method="get">
+            <button class="btn bg-success"><i class="fa fa-male fa-10x bg-success"><h1 class="text-white">.   If  you  are  man!   .</h1></i></button>
+        </form>
+    </div>
+    <div class="col-md-5">
+        <form asp-controller="Exercises" asp-action="AllForWomans" method="get">
+            <button class="btn bg-success"><i class="fa fa-female fa-10x bg-success"><h1 class="text-white">. If you are woman! .</h1></i></button>
+        </form>
+    </div>
+</ul>

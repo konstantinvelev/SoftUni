@@ -6,33 +6,33 @@
 <hr class="hr-3" />
 <form class="mx-auto w-50 bg-blur" action="/Diets/Update?dietId=@Model.DietId" method="post">
     <div class="form-group">
-        <div class="text-dark label-holder d-flex justify-content-center">
+        <div class="text-white label-holder d-flex justify-content-center">
             <label for="title" class="h4 mb-2">Title</label>
         </div>
     </div>
     <div>
         <h5>New title:</h5>
     </div>
-    <input type="text" class="form-control" id="title" name="title" value="@Model.Title"></input>
+    <input type="text" class="form-control text-white" id="title" name="title" value="@Model.Title"></input>
     <div class="form-group">
-        <div class="text-dark label-holder d-flex justify-content-center">
+        <div class="text-white label-holder d-flex justify-content-center">
             <label for="description" class="h4 mb-2">Description</label>
         </div>
         <div>
             <h5>New description:</h5>
         </div>
-        <input type="text" class="form-control" id="description" name="description" value="@Model.Description"></input>
+        <input type="text" class="form-control text-white" id="description" name="description" value="@Model.Description"></input>
     </div>
     <div class="form-group">
-        <div class="text-dark label-holder d-flex justify-content-center">
+        <div class="text-white label-holder d-flex justify-content-center">
             <label for="gender" class="h4 mb-2">Gender</label>
         </div>
-        <div class="text-dark label-holder d-flex justify-content-center">
+        <div class="text-white label-holder d-flex justify-content-center">
             <select styleClass="browser-default custom-select" id="gender" name="gender">
                 <option value="Man">Male</option>
                 <option value="Woman">Female</option>
             </select>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-success">Save</button>
 </form>

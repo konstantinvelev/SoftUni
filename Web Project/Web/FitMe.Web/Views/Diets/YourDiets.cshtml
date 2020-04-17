@@ -4,7 +4,7 @@
 }
 
 <form asp-controller="Diets" asp-action="Create" method="get">
-    <button type="submit" class="btn btn-primary">Add Diet</button>
+    <button type="submit" class="btn btn-success">Add Diet</button>
 </form>
 
 
@@ -13,18 +13,18 @@
 {
     <div class="row blog-page">
         <div class="col-md-9">
-            <h1>
+            <h1 class="text-white">
                 @item.Title
             </h1>
             <div class="blog margin-bottom-40 d-flex justify-content-between">
-                <div class="button-holder">
-                    <a href="/Diets/Details?dietId=@item.Id" class="btn btn-info text-decoration-none">Info</a>
+                <div class="button-holder text-white">
+                    <a href="/Diets/Details?dietId=@item.Id" class="btn btn-success text-decoration-none">Details</a>
                 </div>
-                <div class="button-holder">
-                    <a href="/Diets/Edit?dietId=@item.Id" class="btn btn-info text-decoration-none">Edit</a>
+                <div class="button-holder text-white">
+                    <a href="/Diets/Edit?dietId=@item.Id" class="btn btn-danger text-decoration-none">Edit Post</a>
                 </div>
-                <div class="button-holder">
-                    <a href="/Diets/Delete?dietId=@item.Id" class="btn btn-info text-decoration-none">Delete Diet</a>
+                <div class="button-holder text-white">
+                    <a href="/Diets/Delete?dietId=@item.Id" class="btn btn-danger text-decoration-none">Delete Diet</a>
                 </div>
 
             </div>
