@@ -17,6 +17,7 @@
         [Required]
         public string Gender { get; set; }
 
+        [Required(ErrorMessage = "URL must be not null")]
         public string Video { get; set; }
 
         [Required]

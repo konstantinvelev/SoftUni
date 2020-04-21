@@ -1,10 +1,11 @@
-﻿using FitMe.Data.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace FitMe.Data.Models
+﻿namespace FitMe.Data.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
+    using FitMe.Data.Common.Models;
+
     public class Diet : BaseDeletableModel<string>
     {
         public Diet()

@@ -1,10 +1,13 @@
-﻿using FitMe.Data.Models;
-using FitMe.Web.ViewModels.Comments;
-using System.Collections.Generic;
-
-namespace FitMe.Web.ViewModels.Diets
+﻿namespace FitMe.Web.ViewModels.Diets
 {
-    public class DietsDetailViewModel
+    using System.Collections.Generic;
+    using System.Linq;
+    using AutoMapper;
+    using FitMe.Data.Models;
+    using FitMe.Services.Mapping;
+    using FitMe.Web.ViewModels.Comments;
+
+    public class DietsDetailViewModel : IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -21,5 +24,14 @@ namespace FitMe.Web.ViewModels.Diets
         public string UserUserId { get; set; }
 
         public IEnumerable<CommentViewModel> Comments { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Diet, DietsDetailViewModel>()
+                .ForMember(x => x.VotesCount, options =>
+                {
+                    options.MapFrom(p => p.Votes.Sum(v => (int)v.VoteType));
+                });
+        }
     }
 }

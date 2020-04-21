@@ -4,9 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using System.Web.Mvc;
+    using FitMe.Data;
     using FitMe.Data.Common.Repositories;
     using FitMe.Data.Models;
+    using FitMe.Data.Repositories;
     using FitMe.Web.ViewModels.Diets;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Moq;
@@ -14,33 +16,22 @@
 
     public class DietsServiceTests
     {
+        private ApplicationDbContext db;
         private Mock<IDietsService> mockService;
+        private DietsService service;
 
         public DietsServiceTests()
         {
+            this.db = BaseServiceTests.CreateContext();
             this.mockService = new Mock<IDietsService>();
-        }
 
-        public void GetCountCorrectlyTest()
-        {
-            this.mockService.Setup(s => s.GetCount()).Returns(2);
-            Assert.Equal(2, this.mockService.Object.GetCount());
-        }
-
-        [Fact]
-        public void GetAllDietCorrectlyTest()
-        {
-            this.mockService.Setup(s => s.GetAll(null, 0)).Returns(new List<Diet>
-            {
-                new Diet{ Id = "6b44d6d8-9bb2-4469-a227-a039c5751700", Title = "koceto", Description = "koceto" },
-                new Diet {Id = "23f7169a-2e9a-42d3-88f3-a8a5947e3a08", Title = "mrKing", Description = "mrKing" },
-            });
-
-            Assert.Equal(2, this.mockService.Object.GetAll().Count());
+            var dietsRepository = new EfDeletableEntityRepository<Diet>(this.db);
+            var userRepository = new EfDeletableEntityRepository<ApplicationUser>(this.db);
+            this.service = new DietsService(dietsRepository, userRepository);
         }
 
         [Fact]
-        public void CreateDietCorrectlyTest()
+        public async Task CreateDietCorrectlyTest()
         {
             var input = new CreateDietInputModel
             {
@@ -48,20 +39,151 @@
                 Description = "ads",
             };
 
-            var diet = this.mockService.Setup(s => s.CreateDietAsync(input, Guid.NewGuid().ToString()));
-            Assert.NotNull(diet);
+            var input2 = new CreateDietInputModel
+            {
+                Title = "das",
+                Description = "ads",
+            };
+
+            await this.service.CreateDietAsync(input, Guid.NewGuid().ToString());
+            await this.service.CreateDietAsync(input2, Guid.NewGuid().ToString());
+
+            Assert.Equal(2, this.db.Diets.Count());
         }
 
         [Fact]
-        public void DeleteDietCorrectlyTest()
+        public async Task GetCountCorrectlyTest()
         {
-            this.mockService.Setup(s => s.GetAll(null, 0)).Returns(new List<Diet>
+            var input = new CreateDietInputModel
             {
-                new Diet {Id = "6b44d6d8-9bb2-4469-a227-a039c5751700", Title = "mrKing", Description = "mrKing" },
-            });
+                Title = "das",
+                Description = "ads",
+            };
 
-            this.mockService.Object.DeleteDietAsync("6b44d6d8-9bb2-4469-a227-a039c5751700");
-            Assert.Equal(0, this.mockService.Object.GetCount());
+            await this.service.CreateDietAsync(input, Guid.NewGuid().ToString());
+
+            var count = this.service.GetCount();
+
+            Assert.Equal(1, count);
+        }
+
+        [Fact]
+        public async Task DeleteDietCorrectlyTest()
+        {
+            var diet = new Diet
+            {
+                Id = "6b44d6d8-9bb2-4469-a227-a039c5751700",
+                Title = "mrKing",
+                Description = "mrKing",
+            };
+            this.db.Diets.Add(diet);
+            this.db.SaveChanges();
+
+            await this.service.DeleteDietAsync(diet.Id);
+            Assert.Equal(0, this.service.GetCount());
+        }
+
+        [Fact]
+        public async Task GetDietByIdAsyncCorrectlyTest()
+        {
+            var data = new List<Diet>()
+            {
+                new Diet{ Id = "6b44d6d8-9bb2-4469-a227-a039c5751700", Title = "sad", Description = "adsa"},
+                new Diet{ Id = "6b44d6d8-9bb2-4469-a527-a039c5751700", Title = "sad", Description = "adsa"},
+            };
+            this.db.Diets.AddRange(data);
+            await this.db.SaveChangesAsync();
+
+            var diet = await this.service.GetDietByIdAsync("6b44d6d8-9bb2-4469-a227-a039c5751700");
+            Assert.Equal("sad", diet.Title);
+        }
+
+        [Fact]
+        public void GetDietsByUserCorrectlyTest()
+        {
+            var data = new Diet
+            {
+                Id = "6b44d6d8-9bb2-4469-a227-a039c5751700",
+                Title = "sad",
+                Description = "adsa",
+                UserId = "6b44d699-9bb2-4469-a227-a039c5751700",
+            };
+            this.db.Diets.AddRange(data);
+            this.db.SaveChangesAsync();
+
+            var diet = this.service.GetDietsByUser("6b44d699-9bb2-4469-a227-a039c5751700");
+            Assert.NotEmpty(diet);
+        }
+
+        [Fact]
+        public async Task UpdateTitleCorrectlyTest()
+        {
+            var data = new Diet
+            {
+                Id = "6b44d6d8-9bb2-4469-a227-a039c5751700",
+                Title = "sad",
+                Description = "adsa",
+            };
+            this.db.Diets.AddRange(data);
+            await this.db.SaveChangesAsync();
+
+            var editModel = new EditDietInputModel
+            {
+                Title = "Title",
+                Description = "adsa",
+                DietId = data.Id,
+            };
+
+            await this.service.Update(editModel);
+            Assert.Equal("Title", data.Title);
+        }
+
+        [Fact]
+        public async Task UpdateDescriptionCorrectlyTest()
+        {
+            var data = new Diet
+            {
+                Id = "6b44d6d8-9bb2-4469-a227-a039c5751700",
+                Title = "sad",
+                Description = "adsa",
+            };
+            this.db.Diets.AddRange(data);
+            await this.db.SaveChangesAsync();
+
+            var editModel = new EditDietInputModel
+            {
+                Title = "sad",
+                Description = "Best",
+                DietId = data.Id,
+            };
+
+            await this.service.Update(editModel);
+            Assert.Equal("Best", data.Description);
+        }
+
+        [Fact]
+        public async Task AddCommentToPostCorrectlyTest()
+        {
+            var diet = new Diet
+            {
+                Id = "6b44d6d8-9bb2-4469-a227-a039c5751700",
+                Title = "mrKing",
+                Description = "mrKing",
+            };
+
+            var comment = new Comment
+            {
+                Id = "sadaa",
+                Content = "sss",
+                PostId = "6b44d6d8-9bb2-4469-a227-a039c5751788",
+            };
+
+            this.db.Diets.Add(diet);
+            await this.db.SaveChangesAsync();
+
+            await this.service.AddCommentToDiet(await this.service.GetDietByIdAsync("6b44d6d8-9bb2-4469-a227-a039c5751700"), comment);
+
+            Assert.Equal(1, diet.Comments.Count);
         }
     }
 }

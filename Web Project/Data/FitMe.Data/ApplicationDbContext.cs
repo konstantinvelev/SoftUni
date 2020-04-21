@@ -18,10 +18,16 @@
             typeof(ApplicationDbContext).GetMethod(
                 nameof(SetIsDeletedQueryFilter),
                 BindingFlags.NonPublic | BindingFlags.Static);
+        private DbContextOptions<DbContext> options;
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+        }
+
+        public ApplicationDbContext(DbContextOptions<DbContext> options)
+        {
+            this.options = options;
         }
 
         public DbSet<Setting> Settings { get; set; }
