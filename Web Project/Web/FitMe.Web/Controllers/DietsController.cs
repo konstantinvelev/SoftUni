@@ -100,7 +100,6 @@
             var diet = await this.dietsService.GetDietByIdAsync(dietId);
             var comment = this.commentsService.All<CommentViewModel>().Where(s => s.PostId == diet.Id);
 
-
             var viewModel = new DietsDetailViewModel()
             {
                 Id = diet.Id,

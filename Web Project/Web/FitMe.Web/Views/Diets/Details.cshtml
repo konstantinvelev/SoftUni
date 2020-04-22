@@ -23,6 +23,7 @@
         @this.TempData["InfoMessage"]
     </div>
 }
+
 @{
     var id = "";
 
@@ -40,7 +41,7 @@
                             <div class="text-muted small ml-3">
                                 <form id="votesForm" method="post"></form>
                                 <div>
-                                    <a href="#" onclick="sendVote(@Model.Id, true)">
+                                    <a href="#" onclick="sendVote()">
                                         <i class="fa fa-thumbs-up"></i>
                                     </a>
                                 </div>
@@ -138,22 +139,61 @@
     </div>
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 @section Scripts {
-    <script>
-        function sendVote(postId, isUpVote) {
+    <script type="text/javascript">
+        //  $(document).ready(function () {
+        function sendVote() {
+            alert("hei");
+            var fromURL = window.location.search.substring(1);
+            var postId = fromURL.split("=")[1];
+            console.log(postId);
+
             var token = $("#votesForm input[name=__RequestVerificationToken]").val();
-            var json = { postId: postId, isUpVote: isUpVote };
+            var json = { postId: postId, isUpVote: true };
+            var serviceURL = '/api/Votes';
+
+            console.log(json);
+            console.log(token);
+
             $.ajax({
-                url: "/api/votes",
                 type: "POST",
+                url: serviceURL,
                 data: JSON.stringify(json),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 headers: { 'X-CSRF-TOKEN': token },
-                success: function (data) {
-                    $("#votesCount").html(data.votesCount);
-                }
+                success: successFunc,
+                error: errorFunc
             });
+
+            function successFunc(data, status) {
+                alert(data);
+            }
+
+            function errorFunc() {
+                alert('error');
+            }
         }
+            //});
     </script>
+    @*<script>
+            function sendVote(postId, isUpVote) {
+                var token = $("#votesForm input[name=__RequestVerificationToken]").val();
+                var json = { postId: postId, isUpVote: isUpVote };
+                $.ajax({
+                    url: "/api/votes",
+                    type: "POST",
+                    data: JSON.stringify(json),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    headers: { 'X-CSRF-TOKEN': token },
+                    success: function (data) {
+                        $("#votesCount").html(data.votesCount);
+                    }
+                });
+            }
+        </script>*@
 }
