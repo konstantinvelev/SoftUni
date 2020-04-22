@@ -4,13 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Web.Mvc;
+
     using FitMe.Data;
-    using FitMe.Data.Common.Repositories;
     using FitMe.Data.Models;
     using FitMe.Data.Repositories;
     using FitMe.Web.ViewModels.Diets;
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using Moq;
     using Xunit;
 
@@ -88,8 +86,8 @@
         {
             var data = new List<Diet>()
             {
-                new Diet{ Id = "6b44d6d8-9bb2-4469-a227-a039c5751700", Title = "sad", Description = "adsa"},
-                new Diet{ Id = "6b44d6d8-9bb2-4469-a527-a039c5751700", Title = "sad", Description = "adsa"},
+                new Diet { Id = "6b44d6d8-9bb2-4469-a227-a039c5751700", Title = "sad", Description = "adsa" },
+                new Diet { Id = "6b44d6d8-9bb2-4469-a527-a039c5751700", Title = "sad", Description = "adsa" },
             };
             this.db.Diets.AddRange(data);
             await this.db.SaveChangesAsync();
@@ -184,6 +182,21 @@
             await this.service.AddCommentToDiet(await this.service.GetDietByIdAsync("6b44d6d8-9bb2-4469-a227-a039c5751700"), comment);
 
             Assert.Equal(1, diet.Comments.Count);
+        }
+
+        [Fact]
+        public void GetAllCorrectlyTest()
+        {
+            var data = new Diet
+            {
+                Id = "6b44d6d8-9bb2-4469-a227-a039c5751700",
+                Title = "sad",
+                Description = "adsa",
+            };
+            this.db.Diets.AddRange(data);
+            this.db.SaveChanges();
+
+            Assert.NotEmpty(this.db.Diets);
         }
     }
 }

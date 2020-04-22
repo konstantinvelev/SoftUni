@@ -2,7 +2,7 @@
 {
     using System;
 
-    using Data.Models;
+    using FitMe.Data.Models;
     using FitMe.Services.Mapping;
 
     public class ExerciseViewModel : IMapFrom<Exercise>

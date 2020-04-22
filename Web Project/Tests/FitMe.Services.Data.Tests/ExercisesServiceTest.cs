@@ -15,13 +15,13 @@
     public class ExercisesServiceTest
     {
         private ApplicationDbContext db;
-        private Mock<IDietsService> mockService;
+        private Mock<IExercisesService> mockService;
         private ExercisesService service;
 
         public ExercisesServiceTest()
         {
             this.db = BaseServiceTests.CreateContext();
-            this.mockService = new Mock<IDietsService>();
+            this.mockService = new Mock<IExercisesService>();
 
             var exercisesRepository = new EfDeletableEntityRepository<Exercise>(this.db);
             this.service = new ExercisesService(exercisesRepository);
@@ -51,7 +51,7 @@
             await this.service.CreateMansExercisesAsync(input, Guid.NewGuid().ToString());
             await this.service.CreateWomansExercisesAsync(input2, Guid.NewGuid().ToString());
 
-            Assert.Equal(1, this.db.Exercises.Where(s=>s.TypeOfGender == Gender.Woman).Count());
+            Assert.Equal(1, this.db.Exercises.Where(s => s.TypeOfGender == Gender.Woman).Count());
         }
 
         [Fact]
@@ -124,8 +124,8 @@
         {
             var data = new List<Exercise>()
             {
-                new Exercise{ Id = "6b44d6d8-9bb2-4469-a227-a039c5751700", Title = "sad", Content = "adsa", TypeOfGender = Gender.Man, Video = "asad", UserID = "6b44d6d8-9bb2-4469-a227-a039c5751987"},
-                new Exercise{ Id = "6b44d6d8-9bb2-4469-a527-a039c5751700", Title = "sad", Content = "adsa", TypeOfGender = Gender.Man, Video = "asad", UserID = "6b44d6d8-9bb2-4b69-a227-a039c5751987"},
+                new Exercise { Id = "6b44d6d8-9bb2-4469-a227-a039c5751700", Title = "sad", Content = "adsa", TypeOfGender = Gender.Man, Video = "asad", UserID = "6b44d6d8-9bb2-4469-a227-a039c5751987" },
+                new Exercise { Id = "6b44d6d8-9bb2-4469-a527-a039c5751700", Title = "sad", Content = "adsa", TypeOfGender = Gender.Man, Video = "asad", UserID = "6b44d6d8-9bb2-4b69-a227-a039c5751987" },
             };
             this.db.Exercises.AddRange(data);
             await this.db.SaveChangesAsync();
@@ -295,83 +295,24 @@
             Assert.Equal(1, data1.Commetns.Count);
         }
 
-        //[Fact]
-        //public void GetAllForMansCorrectly()
-        //{
-        //    var data1 = new Exercise
-        //    {
-        //        Id = "6b44d6d8-9bb2-4469-a227-a039c6251700",
-        //        Title = "Title",
-        //        Content = "hei",
-        //        Video = "https://www.youtube.com/watch?v=PnuT3TKS2nY",
-        //        TypeOfGender = Gender.Man,
-        //        UserID = "6b44d699-9bb2-4469-a227-a039c5751700",
-        //    };
-        //    var data2 = new Exercise
-        //    {
-        //        Id = "6b44d6d8-9bb2-4469-a227-a039c5851700",
-        //        Title = "Title",
-        //        Content = "hei",
-        //        Video = "https://www.youtube.com/watch?v=PnuTsTKS2nY",
-        //        TypeOfGender = Gender.Woman,
-        //        UserID = "6b44d699-9bb2-4469-a227-a039c5751700",
-        //    };
-        //    var data3 = new Exercise
-        //    {
-        //        Id = "6b44d6d8-9bb2-4469-a227-a039c5351700",
-        //        Title = "Title",
-        //        Content = "hei",
-        //        Video = "https://www.youtube.com/watch?v=NnuT3TKS2nY",
-        //        TypeOfGender = Gender.Man,
-        //        UserID = "6b44d699-9bb2-4469-a227-a039c5751700",
-        //    };
-        //    this.db.Exercises.Add(data1);
-        //    this.db.Exercises.Add(data2);
-        //    this.db.Exercises.Add(data3);
-        //    this.db.SaveChanges();
+        [Fact]
+        public void GetAllCorrectlyTest()
+        {
+            var exercise = new Exercise
+            {
 
+                Id = "6b44d6d8-9bb2-4469-a227-a039c5751700",
+                Title = "sad",
+                Content = "adsa",
+                Video = "oooo",
+                TypeOfGender = Gender.Woman,
+                UserID = "6b44d699-9bb2-4469-a227-a039c5751700",
+            };
 
-        //    var exercises = this.service.GetAllForMans<ExerciseViewModel>(null, 0);
-        //    Assert.Equal(2, exercises.Count());
-        //}
-
-        //[Fact]
-        //public void GetAllForWommansCorrectly()
-        //{
-        //    var data1 = new Exercise
-        //    {
-        //        Id = "6b44d6d8-9bb2-4469-a227-a039c6251700",
-        //        Title = "Title",
-        //        Content = "hei",
-        //        Video = "https://www.youtube.com/watch?v=PnuT3TKS2nY",
-        //        TypeOfGender = Gender.Man,
-        //        UserID = "6b44d699-9bb2-4469-a227-a039c5751700",
-        //    };
-        //    var data2 = new Exercise
-        //    {
-        //        Id = "6b44d6d8-9bb2-4469-a227-a039c5851700",
-        //        Title = "Title",
-        //        Content = "hei",
-        //        Video = "https://www.youtube.com/watch?v=PnuTsTKS2nY",
-        //        TypeOfGender = Gender.Woman,
-        //        UserID = "6b44d699-9bb2-4469-a227-a039c5751700",
-        //    };
-        //    var data3 = new Exercise
-        //    {
-        //        Id = "6b44d6d8-9bb2-4469-a227-a039c5351700",
-        //        Title = "Title",
-        //        Content = "hevvi",
-        //        Video = "https://www.youtube.com/watch?v=NnuT3TKS2nY",
-        //        TypeOfGender = Gender.Man,
-        //        UserID = "6b44d699-9bb2-4469-a227-a039c5751700",
-        //    };
-        //    this.db.Exercises.Add(data1);
-        //    this.db.Exercises.Add(data2);
-        //    this.db.Exercises.Add(data3);
-        //    this.db.SaveChanges();
-
-        //    var exercises = this.service.GetAllForWomens<ExerciseViewModel>(null, 0);
-        //    Assert.Equal(2, exercises.Count());
-        //}
+            this.db.Exercises.Add(exercise);
+            this.db.SaveChanges();
+            var exercises = this.service.GetAll();
+            Assert.Equal(1, exercises.Count());
+        }
     }
 }

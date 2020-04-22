@@ -1,9 +1,10 @@
-﻿using FitMe.Data.Common.Repositories;
-using FitMe.Data.Models;
-using System.Linq;
-
-namespace FitMe.Services.Data
+﻿namespace FitMe.Services.Data
 {
+    using System.Linq;
+
+    using FitMe.Data.Common.Repositories;
+    using FitMe.Data.Models;
+
     public class UsersService : IUsersService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> repository;
