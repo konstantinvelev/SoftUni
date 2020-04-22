@@ -3,30 +3,57 @@
     ViewData["Title"] = "Diets";
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <form asp-controller="Diets" asp-action="Create" method="get">
     <button type="submit" class="btn btn-success">Add Diet</button>
 </form>
 
-
-
-@foreach (var item in Model.Diets)
-{
-    <div class="row blog-page">
-        <div class="col-md-9">
-            <h1 class="text-white">
-                @item.Title
-            </h1>
-            <div class="blog margin-bottom-40 d-flex justify-content-between">
-                <div class="button-holder text-white">
-                    <a href="/Diets/Details?dietId=@item.Id" class="btn btn-success text-decoration-none">Details</a>
+@{
+    var id = "";
+    @foreach (var item in Model.Diets)
+    {
+        id = @item.Id;
+        <div class="row blog-page">
+            <div class="col-md-9">
+                <h1 class="text-white">
+                    @item.Title
+                </h1>
+                <div class="blog margin-bottom-40 d-flex justify-content-between">
+                    <div class="button-holder text-white">
+                        <a href="/Diets/Details?dietId=@item.Id" class="btn btn-success text-decoration-none">Details</a>
+                    </div>
+                    <div class="button-holder text-white">
+                        <a href="/Diets/Edit?dietId=@item.Id" class="btn btn-danger text-decoration-none">Edit Post</a>
+                    </div>
+                    <div class="button-holder text-white">
+                        <a href="#myModal" class="trigger-btn btn btn-danger" data-toggle="modal">Delete Diet</a>
+                    </div>
                 </div>
-                <div class="button-holder text-white">
-                    <a href="/Diets/Edit?dietId=@item.Id" class="btn btn-danger text-decoration-none">Edit Post</a>
-                </div>
-                <div class="button-holder text-white">
-                    <a href="/Diets/Delete?dietId=@item.Id" class="btn btn-danger text-decoration-none">Delete Diet</a>
-                </div>
+            </div>
+        </div>
+    }
 
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want to delete these records? This process cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                    <div class="button-holder text-white">
+                        <a href="/Diets/Delete?dietId=@id" class="btn btn-danger text-decoration-none">Delete</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

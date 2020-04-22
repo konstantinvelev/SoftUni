@@ -5,35 +5,60 @@
 <form asp-controller="Exercises" asp-action="Create" method="get">
     <button type="submit" class="btn btn-success">Add Exercises</button>
 </form>
+@{
+    var id = "";
 
+    @foreach (var item in Model.Exercises)
+    {
+        id = @item.Id;
+        <div class="row blog-page">
+            <div class="col-md-9">
 
-@foreach (var item in Model.Exercises)
-{
-    <div class="row blog-page">
-        <div class="col-md-9">
+                <h1 class="text-white">
+                    @item.Title
+                </h1>
+                <div class="blog margin-bottom-40">
 
-            <h1 class="text-white">
-                @item.Title
-            </h1>
-            <div class="blog margin-bottom-40">
+                    <div class="blog-img">
+                        <div class="responsive-video text-white">
+                            <iframe src="https://www.youtube.com/embed/@item.Video" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                        </div>
+                    </div>
 
-                <div class="blog-img">
-                    <div class="responsive-video text-white">
-                        <iframe src="https://www.youtube.com/embed/@item.Video" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                    <div class="button-holder d-flex justify-content-between text-white">
+                        <a href="/Exercises/Details?exerciseId=@item.Id" class="btn btn-success text-decoration-none">Details</a>
+                        <div class="button-holder text-white">
+                            <a href="/Exercises/Edit?exerciseId=@item.Id" class="btn btn-danger text-decoration-none">Edit Post</a>
+                        </div>
+                        <div class="button-holder text-white">
+                            <a href="#myModal" class="trigger-btn btn btn-danger" data-toggle="modal">Delete Exercise</a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want to delete these records? This process cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                    <div class="button-holder text-white">
+                        <a href="/Exercises/Delete?exerciseId=@id" class="btn btn-danger text-decoration-none">Delete</a>
                     </div>
                 </div>
-
-                <div class="button-holder d-flex justify-content-between text-white">
-                    <a href="/Exercises/Details?exerciseId=@item.Id" class="btn btn-success text-decoration-none">Details</a>
-                    <div class="button-holder text-white">
-                        <a href="/Exercises/Edit?exerciseId=@item.Id" class="btn btn-danger text-decoration-none">Edit Post</a>
-                    </div>
-                    <div class="button-holder text-white">
-                        <a href="/Exercises/Delete?exerciseId=@item.Id" class="btn btn-danger text-decoration-none">Delete Exercise</a>
-                    </div>
-
-                </div>
-
             </div>
         </div>
     </div>

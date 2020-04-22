@@ -21,98 +21,123 @@
         @this.TempData["InfoMessage"]
     </div>
 }
-
-<div class="container-fluid mt-100 mydetails">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <div class="media flex-wrap w-100 align-items-center">
-                        <div class="media-body ml-3">
-                            @Model.UserUserName
-                            <div class="text-muted small">@Model.CreatedOn</div>
-                            <h1 class="text-dark">@Model.Title</h1>
-                        </div>
-                        <div class="text-muted small ml-3">
-                            <form id="votesForm" method="post"></form>
-                            <div>
-                                <a href="#" onclick="sendVote(@Model.Id, true)">
-                                    <i class="fa fa-thumbs-up"></i>
-                                </a>
-                            </div>
-                            <div id="votesCount">@Model.VotesCount</div>
-                            <div>
-                                <a href="#" onclick="sendVote(@Model.Id, false)">
-                                    <i class="fa fa-thumbs-down"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-header">
-                    <iframe src="https://www.youtube.com/embed/@Model.Video" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
-                </div>
-                <div class="card-header">
-                    <div class="media flex-wrap w-100 align-items-center">
-                        @Model.Content
-                    </div>
-                </div>
-
-                <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
-                    <div class="px-4 pt-3">
-                        <i class="fa fa-heart text-danger"></i>&nbsp; <span class="align-middle">0</span> <span class="text-muted d-inline-flex align-items-center align-middle ml-4">
-                            <i class="fa fa-eye text-muted fsize-3"></i>&nbsp; <span class="align-middle">0</span>
-                        </span>
-                    </div>
-                    <div class="px-4 pt-3">
-                        <div class="button-holder">
-                            <a href="/Comments/Create?postId=@Model.Id" class="btn btn-success text-decoration-none">Reply</a>
-                        </div>
-                    </div>
-                </div>
-                @foreach (var item in Model.Comments)
-                {
+@{
+    var id = "";
+    <div class="container-fluid mt-100 mydetails">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
                     <div class="card-header">
-                        <div class="card-header">
-                            <div class="media flex-wrap w-100 align-items-center">
-                                <div class="media-body ml-3">
-                                    @Model.UserUserName
-                                    <div class="text-muted small">@item.CreatedOn</div>
+                        <div class="media flex-wrap w-100 align-items-center">
+                            <div class="media-body ml-3">
+                                @Model.UserUserName
+                                <div class="text-muted small">@Model.CreatedOn</div>
+                                <h1 class="text-dark">@Model.Title</h1>
+                            </div>
+                            <div class="text-muted small ml-3">
+                                <form id="votesForm" method="post"></form>
+                                <div>
+                                    <a href="#" onclick="sendVote(@Model.Id, true)">
+                                        <i class="fa fa-thumbs-up"></i>
+                                    </a>
                                 </div>
-                                <div class="text-muted small ml-3">
-                                    <form id="votesForm" method="post"></form>
-                                    <div>
-                                        <a href="#" onclick="sendVote(@item.Id, true)">
-                                            <i class="fa fa-thumbs-up"></i>
-                                        </a>
-                                    </div>
-                                    <div id="votesCount">@item.VotesCount</div>
-                                    <div>
-                                        <a href="#" onclick="sendVote(@item.Id, false)">
-                                            <i class="fa fa-thumbs-down"></i>
-                                        </a>
-                                    </div>
+                                <div id="votesCount">@Model.VotesCount</div>
+                                <div>
+                                    <a href="#" onclick="sendVote(@Model.Id, false)">
+                                        <i class="fa fa-thumbs-down"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-header">
-                            <div class="media flex-wrap w-100 align-items-center">
-                                @item.Content
-                            </div>
-                        </div>
-                        @if (item.UserId == Model.UserUserId)
-                        {
-                            <div class="button-holder">
-                                <a href="/Comments/Delete?commentId=@item.Id" class="btn btn-danger text-decoration-none">Delete</a>
-                            </div>
-                        }
                     </div>
-                }
+                    <div class="card-header">
+                        <iframe src="https://www.youtube.com/embed/@Model.Video" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                    </div>
+                    <div class="card-header">
+                        <div class="media flex-wrap w-100 align-items-center">
+                            @Model.Content
+                        </div>
+                    </div>
+
+                    <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                        <div class="px-4 pt-3">
+                            <i class="fa fa-heart text-danger"></i>&nbsp; <span class="align-middle">0</span> <span class="text-muted d-inline-flex align-items-center align-middle ml-4">
+                                <i class="fa fa-eye text-muted fsize-3"></i>&nbsp; <span class="align-middle">0</span>
+                            </span>
+                        </div>
+                        <div class="px-4 pt-3">
+                            <div class="button-holder">
+                                <a href="/Comments/Create?postId=@Model.Id" class="btn btn-success text-decoration-none">Reply</a>
+                            </div>
+                        </div>
+                    </div>
+                    @foreach (var item in Model.Comments)
+                    {
+                        id = item.Id;
+                        <div class="card-header">
+                            <div class="card-header">
+                                <div class="media flex-wrap w-100 align-items-center">
+                                    <div class="media-body ml-3">
+                                        @Model.UserUserName
+                                        <div class="text-muted small">@item.CreatedOn</div>
+                                    </div>
+                                    <div class="text-muted small ml-3">
+                                        <form id="votesForm" method="post"></form>
+                                        <div>
+                                            <a href="#" onclick="sendVote(@item.Id, true)">
+                                                <i class="fa fa-thumbs-up"></i>
+                                            </a>
+                                        </div>
+                                        <div id="votesCount">@item.VotesCount</div>
+                                        <div>
+                                            <a href="#" onclick="sendVote(@item.Id, false)">
+                                                <i class="fa fa-thumbs-down"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <div class="media flex-wrap w-100 align-items-center">
+                                    @item.Content
+                                </div>
+                            </div>
+                            @if (item.UserId == Model.UserUserId)
+                            {
+                                <div class="button-holder text-white">
+                                    <a href="#myModal" class="trigger-btn btn btn-danger" data-toggle="modal">Delete Exercise</a>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
 
-</div>
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want to delete these records? This process cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                    <div class="button-holder text-white">
+                        <a href="/Comments/Delete?commentId=@id" class="btn btn-danger text-decoration-none">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @section Scripts {
     <script>

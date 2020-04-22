@@ -83,7 +83,6 @@
             var url = input.Video.Split("watch?v=");
             input.Video = url[1];
 
-
             var user = await this.userManager.GetUserAsync(this.User);
             if (input.Gender.ToString() == "Man")
             {
