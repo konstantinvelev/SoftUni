@@ -11,7 +11,7 @@
         </div>
     </div>
     <div>
-        <h5>New title:</h5>
+        <h5 class="text-white">New title:</h5>
     </div>
     <input type="text" class="form-control" id="title" name="title" value="@Model.Title"></input>
     <div class="form-group">
@@ -19,16 +19,16 @@
             <label for="content" class="h4 mb-2">Content</label>
         </div>
         <div>
-            <h5>New content:</h5>
+            <h5 class="text-white">New content:</h5>
         </div>
-        <input type="text" class="form-control" id="content" name="content" value="@Model.Content"></input>
+        <textarea type="text" class="form-control" id="content" name="content" value="@Model.Content">@Model.Content</textarea>
     </div>
     <div class="form-group">
         <div class="text-white label-holder d-flex justify-content-center">
             <label for="video" class="h4 mb-2">Video</label>
         </div>
         <div>
-            <h5>New video:</h5>
+            <h5 class="text-white">New video:</h5>
         </div>
         <input type="text" class="form-control" id="video" name="video" value="@Model.Video"></input>
     </div>

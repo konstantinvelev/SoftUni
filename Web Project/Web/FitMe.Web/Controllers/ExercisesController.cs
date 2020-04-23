@@ -194,10 +194,17 @@
             {
                 return this.View(input);
             }
-            var url = input.Video.Split("watch?v=");
-            input.Video = url[1];
-            input.ExerciseId = exerciseId;
 
+            var url = input.Video.Split("watch?v=");
+            if (url.Length > 1)
+            {
+                input.Video = url[1];
+                input.ExerciseId = exerciseId;
+            }
+            else
+            {
+                input.Video = url[0];
+            }
 
             await this.exercisesService.Update(input);
             return this.Redirect("/Exercises/YourExercises");
