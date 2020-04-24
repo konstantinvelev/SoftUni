@@ -95,6 +95,8 @@
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithReExecute("/Home/NullObjects");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

@@ -3,15 +3,20 @@
     this.ViewData["Title"] = "No objects";
 }
 
-    <div class="text-center">
-        <h1 class="display-1">@GlobalConstants.SystemName!</h1>
-        <h2 class="display-3">Don't have any information here!</h2>
-        <h2 class="display-3">If you have to add some exercises or diets, click here!</h2>
-        <form asp-controller="Diets" asp-action="Create" method="get">
-            <button type="submit" class="btn btn-primary">Add Diet</button>
-        </form>
-        <form asp-controller="Exercises" asp-action="Create" method="get">
-            <button type="submit" class="btn btn-primary">Add Exercises</button>
-        </form>
-
+<div class="text-center text-white">
+    <h1 class="display-1">@GlobalConstants.SystemName!</h1>
+    <h2 class="display-3">Don't have any information here!</h2>
+    <h2 class="display-3">If you have to add some exercises or diets, click here!</h2>
+    <div class="row margintop">
+        <div class="col-md-6 ">
+            <form asp-controller="Diets" asp-action="Create" method="get">
+                <button type="submit" class="btn btn-success">Add Diet</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form asp-controller="Exercises" asp-action="Create" method="get">
+                <button type="submit" class="btn btn-success">Add Exercises</button>
+            </form>
+        </div>
     </div>
+</div>
