@@ -95,7 +95,7 @@
                 app.UseHsts();
             }
 
-            app.UseStatusCodePagesWithReExecute("/Home/NullObjects");
+            app.UseStatusCodePagesWithReExecute("/Home/Unfound");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

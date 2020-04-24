@@ -34,5 +34,10 @@
         {
             return this.View();
         }
+
+        public IActionResult Unfound()
+        {
+            return this.View();
+        }
     }
 }
