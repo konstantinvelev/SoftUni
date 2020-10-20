@@ -144,39 +144,38 @@
 
 @section Scripts {
     <script type="text/javascript">
-         $(document).ready(function () {
-        function sendVote() {
-            alert("hei");
-            var fromURL = window.location.search.substring(1);
-            var postId = fromURL.split("=")[1];
-            console.log(postId);
+        $(document).ready(function () {
+            function sendVote() {
+                var fromURL = window.location.search.substring(1);
+                var postId = fromURL.split("=")[1];
+                console.log(postId);
 
-            var token = $("#votesForm input[name=__RequestVerificationToken]").val();
-            var json = { postId: postId, isUpVote: true };
-            var serviceURL = '/api/Votes';
+                var token = $("#votesForm input[name=__RequestVerificationToken]").val();
+                var json = { postId: postId, isUpVote: true };
+                var serviceURL = '/api/Votes';
 
-            console.log(json);
-            console.log(token);
+                console.log(json);
+                console.log(token);
 
-            $.ajax({
-                type: "POST",
-                url: serviceURL,
-                data: JSON.stringify(json),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                headers: { 'X-CSRF-TOKEN': token },
-                success: successFunc,
-                error: errorFunc
-            });
+                $.ajax({
+                    type: "POST",
+                    url: serviceURL,
+                    data: JSON.stringify(json),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    headers: { 'X-CSRF-TOKEN': token },
+                    success: successFunc,
+                    error: errorFunc
+                });
 
-            function successFunc(data, status) {
-                alert(data);
+                function successFunc(data, status) {
+                    alert(data);
+                }
+
+                function errorFunc() {
+                    alert('error');
+                }
             }
-
-            function errorFunc() {
-                alert('error');
-            }
-        }
-            });
+        });
     </script>
 }

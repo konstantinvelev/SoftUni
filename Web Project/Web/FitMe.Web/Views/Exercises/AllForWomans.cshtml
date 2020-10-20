@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 
 <form asp-controller="Exercises" asp-action="Create" method="get">
-    <button type="submit" class="btn btn-primary">Add Exercises</button>
+    <button type="submit" class="btn btn-success">Add Exercises</button>
 </form>
 
 @foreach (var item in Model.Exercises)
@@ -46,9 +46,6 @@
     </div>
 }
 
-<form asp-controller="Exercises" asp-action="Create" method="get">
-    <button type="submit" class="btn btn-primary">Add Exercises</button>
-</form>
 
 @model FitMe.Web.ViewModels.Exercise.AllExercisesViewModel
 @{

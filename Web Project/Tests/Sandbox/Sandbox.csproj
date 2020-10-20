@@ -40,7 +40,6 @@
     <ProjectReference Include="..\..\Services\FitMe.Services.Data\FitMe.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\FitMe.Services.Mapping\FitMe.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\FitMe.Services.Messaging\FitMe.Services.Messaging.csproj" />
-    <ProjectReference Include="..\..\Services\FitMe.Services\FitMe.Services.csproj" />
   </ItemGroup>
 
 </Project>

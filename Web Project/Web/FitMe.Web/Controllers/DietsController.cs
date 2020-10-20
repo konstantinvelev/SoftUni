@@ -95,7 +95,6 @@
         [Authorize]
         public async Task<IActionResult> Details(string dietId)
         {
-
             var user = await this.userManager.GetUserAsync(this.User);
             var diet = await this.dietsService.GetDietByIdAsync(dietId);
             var comment = this.commentsService.All<CommentViewModel>().Where(s => s.PostId == diet.Id);
